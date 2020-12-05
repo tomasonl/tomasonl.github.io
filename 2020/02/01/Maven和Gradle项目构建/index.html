@@ -1,0 +1,221 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Maven和Grade构建项目 | 李响的技术博客</title><meta name="keywords" content="工作记录"><meta name="author" content="Tomasonlee"><meta name="copyright" content="Tomasonlee"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="一、Maven介绍一、maven介绍maven 是一个项目管理工具，主要作用是在项目开发阶段对Java项目进行依赖管理和项目构建。依赖管理：就是对jar包的管理。通过导入maven坐标，就相当于将仓库中的jar包导入了当前项目中。项目构建：通过maven的一个命令就可以完成项目从清理、编译、测试、报告、打包，部署整个过程。 ①maven中央仓库（地址：http:&#x2F;&#x2F;repo2.maven.org&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Maven和Grade构建项目">
+<meta property="og:url" content="http://tomasonl.github.io/2020/02/01/Maven%E5%92%8CGradle%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.html">
+<meta property="og:site_name" content="李响的技术博客">
+<meta property="og:description" content="一、Maven介绍一、maven介绍maven 是一个项目管理工具，主要作用是在项目开发阶段对Java项目进行依赖管理和项目构建。依赖管理：就是对jar包的管理。通过导入maven坐标，就相当于将仓库中的jar包导入了当前项目中。项目构建：通过maven的一个命令就可以完成项目从清理、编译、测试、报告、打包，部署整个过程。 ①maven中央仓库（地址：http:&#x2F;&#x2F;repo2.maven.org&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg">
+<meta property="article:published_time" content="2020-02-01T00:26:59.000Z">
+<meta property="article:modified_time" content="2020-12-05T01:27:19.064Z">
+<meta property="article:author" content="Tomasonlee">
+<meta property="article:tag" content="工作记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg"><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="http://tomasonl.github.io/2020/02/01/Maven%E5%92%8CGradle%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-05 09:27:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="李响的技术博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">李响的技术博客</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Maven和Grade构建项目</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-01T00:26:59.000Z" title="发表于 2020-02-01 08:26:59">2020-02-01</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-05T01:27:19.064Z" title="更新于 2020-12-05 09:27:19">2020-12-05</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="一、Maven介绍"><a href="#一、Maven介绍" class="headerlink" title="一、Maven介绍"></a>一、Maven介绍</h1><h2 id="一、maven介绍"><a href="#一、maven介绍" class="headerlink" title="一、maven介绍"></a>一、maven介绍</h2><p>maven 是一个项目管理工具，主要作用是在项目开发阶段对Java项目进行依赖管理和项目构建。<br>依赖管理：就是对jar包的管理。通过导入maven坐标，就相当于将仓库中的jar包导入了当前项目中。<br>项目构建：通过maven的一个命令就可以完成项目从清理、编译、测试、报告、打包，部署整个过程。</p>
+<p>①maven中央仓库（地址：<a target="_blank" rel="noopener" href="http://repo2.maven.org/maven2/%EF%BC%89">http://repo2.maven.org/maven2/）</a><br>②maven私服（公司局域网内的仓库，需要自己搭建）<br>③其他公共远程仓库（例如apache提供的远程仓库，地址：<a target="_blank" rel="noopener" href="http://repo.maven.apache.org/maven2/%EF%BC%89">http://repo.maven.apache.org/maven2/）</a></p>
+<p>clean： 清理<br>compile：编译<br>test： 测试<br>package：打包<br>install： 安装</p>
+<h2 id="二、分模块开发"><a href="#二、分模块开发" class="headerlink" title="二、分模块开发"></a>二、分模块开发</h2><p>继承！！！parent！！！</p>
+<p>聚合！！！ module！！！</p>
+<p>Dependencies和dependencyManagement<br>dependencyManagement—–统一管理项目的版本号，确保应用的各个项目的依赖和版本一致，升级版本方便；<br>子项目需要特定版本号时，只需在其dependencies中声明，就可使用自己的不继承父类的。<br>dependencies—–所有声明在dependencies里的依赖都会自动引入，并默认被所有的子项目继承。</p>
+<p>Build标签<br>一种<build>被称为Project Build，即是<project>子元素。另一种<build>被称为Profile Build，即是<profile>的直接子元素。</p>
+<p>Profile Build包含了基本的build元素，而Project Build还包含两个特殊的元素，即各种&lt;…Directory&gt;和<extensions>。</p>
+<p>plugins—用于指定使用的插件；pluginManagement只是用于继承，使得可以在子pom中使用。</p>
+<h1 id="二、Gradle介绍"><a href="#二、Gradle介绍" class="headerlink" title="二、Gradle介绍"></a>二、Gradle介绍</h1><h2 id="一、Gradle介绍-Groove语言"><a href="#一、Gradle介绍-Groove语言" class="headerlink" title="一、Gradle介绍+Groove语言"></a>一、Gradle介绍+Groove语言</h2><p>       Gradle，使用Groovy语言基于Apache Ant和Apache Maven概念的项目自动化构建开源工具。<br>Groovy是一种基于JVM的语言，它结合了Python、Ruby强大的特性，与 Java 代码易结合、扩展。</p>
+<p>2000Ant—2004Maven—2012Gradle</p>
+<p>轻量化趋势，Gradle优点：简化Maven繁琐xml配置、强大支持多工程构建、Groove语言性能。</p>
+<p>语法：</p>
+<p>输出： println “hello，world！”———比较随意，单引号双引号随意，分号可以不加，括号也可以没有。给力！<br>定义变量：def 赋值决定变量—-类似js 也可以强类型定义 int a=666;不过没有基本类型，都是对象类型。<br>lList：def numbers = [1, 2, 3]；Groovy 不支持 Java 数组初始化符号 {}，因为 {} 可能会被曲解成 Groovy 闭包的符号；<br>Map：def colors = [red: ‘#FF0000’, green: ‘#00FF00’, blue: ‘#0000FF’]   <br>闭包：代码块，可以作为参数在方法之间传递。就是定义一个 def m{sout }<br>build.gradle—-局部设置</p>
+<p>settings.gradle—全局设置</p>
+<h2 id="二、Gradle组成"><a href="#二、Gradle组成" class="headerlink" title="二、Gradle组成"></a>二、Gradle组成</h2><ol>
+<li><p>Project与Task<br>在Gradle中，每一个待构建的工程是一个Project，构建一个Project需要执行一系列Task，比如编译、打包这些构建过程的子过程都对应着一个Task。</p>
+</li>
+<li><p>插件<br>插件用来定义和执行Task。</p>
+</li>
+</ol>
+<p>在新建工程的app模块的build.gradle文件的第一行，往往都是如下这句：</p>
+<p>apply plugin: ‘com.android.application’<br>这句话的意思就是应用“com.android.application“这个插件来构建app模块，app模块就是Gradle中的一个Project。也就是说，这个插件负责定义并执行Java源码编译、资源文件编译、打包等一系列Task。实际上”com.android.application”整个插件中定义了如下4个顶级任务：</p>
+<p>assemble: 构建项目的输出（apk）</p>
+<p>check: 进行校验工作</p>
+<p>build: 执行assemble任务与check任务</p>
+<p>clean: 清除项目的输出</p>
+<p>当我们执行一个任务时，会自动执行它所依赖的任务。比如，执行assemble任务会执行assembleDebug任务和assembleRelease任务，这是因为一个Android项目至少要有debug和release这两个版本的输出。</p>
+<ol start="3">
+<li>Gradle配置文件<br>我们在Android Studio中新建一个工程，可以得到如下的工程结构图：</li>
+</ol>
+<p>上面我们说过，Android Studio中的一个Module即为Gradle中的一个Project。上图的app目录下，存在一个build.gradle文件，代表了app Module的构建脚本，它定义了应用于本模块的构建规则。我们可以看到，工程根目录下也存在一个build.gradle文件，它代表了整个工程的构建，其中定义了适用于这个工程中所有模块的构建规则。</p>
+<p>接下来我们介绍一下上图中其他几个Gradle配置文件：</p>
+<p>gradle.properties: 从它的名字可以看出，这个文件中定义了一系列“属性”。实际上，这个文件中定义了一系列供build.gradle使用的常量，比如keystore的存储路径、keyalias等等。</p>
+<p>gradlew与gradlew.bat: gradlew为Linux下的shell脚本，gradlew.bat是Windows下的批处理文件。gradlew是gradle wrapper的缩写，也就是说它对gradle的命令进行了包装，比如我们进入到指定Module目录并执行“gradlew.bat assemble”即可完成对当前Module的构建（Windows系统下）。</p>
+<p>local.properties: 从名字就可以看出来，这个文件中定义了一些本地属性，比如SDK的路径。</p>
+<p>settings.gradle: 假如我们的项目包含了不只一个Module时，我们想要一次性构建所有Module以完成整个项目的构建，这时我们需要用到这个文件。比如我们的项目包含了ModuleA和ModuleB这两个模块，则这个文件中会包含这样的语句：include ‘:ModuleA’, ‘:ModuleB’。</p>
+<ol start="4">
+<li>构建脚本<br>首先我们来看一下工程目录下的build.gradle，它指定了真个整个项目的构建规则，它的内容如下：</li>
+</ol>
+<p>buildscript {<br>    repositories {<br>        jcenter() //构建脚本中所依赖的库都在jcenter仓库下载<br>    }<br>    dependencies {<br>        //指定了gradle插件的版本<br>        classpath ‘com.android.tools.build:gradle:1.5.0’<br>    }<br>}</p>
+<p>allprojects {<br>    repositories {<br>        //当前项目所有模块所依赖的库都在jcenter仓库下载<br>        jcenter()<br>    }<br>}</p>
+<p>我们再来简单介绍下app模块的build.gradle的内容：</p>
+<p>//加载用于构建Android项目的插件<br>apply plugin: ‘com.android.application’</p>
+<p>android { //构建Android项目使用的配置<br>    compileSdkVersion 23 //指定编译项目时使用的SDK版本<br>    buildToolsVersion “23.0.1” //指定构建工具的版本</p>
+<p>    defaultConfig {<br>        applicationId “com.absfree.debugframwork” //包名<br>        minSdkVersion 15  //指定支持的最小SDK版本<br>        targetSdkVersion 23 //针对的目标SDK版本<br>        versionCode 1<br>        versionName “1.0”<br>    }<br>    buildTypes { //针对不同的构建版本进行一些设置<br>        release { //对release版本进行的设置<br>            minifyEnabled false //是否开启混淆<br>            proguardFiles getDefaultProguardFile(‘proguard-android.txt’), ‘proguard-rules.pro’  //指定混淆文件的位置<br>        }<br>    }<br>}</p>
+<p>dependencies { //指定当前模块的依赖<br>    compile fileTree(dir: ‘libs’, include: [‘*.jar’])<br>    testCompile ‘junit:junit:4.12’<br>    compile ‘com.android.support:appcompat-v7:23.1.1’<br>    compile ‘com.android.support:design:23.1.1’<br>}</p>
+<h2 id="三、常见配置"><a href="#三、常见配置" class="headerlink" title="三、常见配置"></a>三、常见配置</h2><p>整个工程的build.gradle通常不需我们改动，这里我们介绍下一些对模块目录下build.gradle文件的常见配置。</p>
+<ol>
+<li>依赖第三方库<br>当我们的项目中用到了了一些第三方库时，我们就需要进行一些配置，以保证能正确导入相关依赖。设置方法很简单，比如我们在app模块中中用到了Fresco，只需要在build.gradle文件中的dependencies块添加如下语句：</li>
+</ol>
+<p>dependencies {<br>    …<br>    compile ‘com.facebook.fresco:fresco:0.11.0’<br>}<br>这样一来，Gradle会自动从jcenter仓库下载我们所需的第三方库并导入到项目中。</p>
+<ol start="2">
+<li>导入本地jar包<br>在使用第三方库时，除了像上面那样从jcenter仓库下载，我们还可以导入本地的jar包。配置方法也很简单，只需要先把jar文件添加到app\libs目录下，然后在相应jar文件上单击右键，选择“Ad As Library”。然后在build.gradle的dependencies块下添加如下语句：</li>
+</ol>
+<p>compile files(‘libs/xxx.jar’)<br>实际上我们可以看到，系统为我们创建的build.gradle中就已经包含了如下语句：</p>
+<p>compile fileTree(dir: ‘libs’, include: [‘*.jar’])<br>这句话的意思是，将libs目录下的所有jar包都导入。所以实际上我们只需要把jar包添加到libs目录下并“Ad As Library”即可。</p>
+<ol start="3">
+<li>依赖其它模块<br>假设我们的项目包含了多个模块，并且app模块依赖other模块，那么我们只需app\build.gradle的denpendencies块下添加如下语句：</li>
+</ol>
+<p>compile project(‘:other’)<br>4. 构建输出为aar文件<br>通常我们构建的输出目标都是apk文件，但如果我们的当前项目时Android Library，我们的目标输出就是aar文件。要想达到这个目的也很容易，只需要把build.gradle的第一句改为如下：</p>
+<p>apply plugin:’com.android.library’<br>这话表示我们使用的插件不再是构建Android应用的插件，而是构建Android Library的插件，这个插件定义并执行用于构建Android Library的一系列Task。</p>
+<ol start="5">
+<li>自动移除不再使用的资源<br>只需进行如下配置：</li>
+</ol>
+<p>android {<br>    …<br>    }<br>    buildTypes {<br>        release {<br>            …<br>            shrinkResources true<br>            …<br>        }<br>    }<br>}<br><strong>TIPS：</strong></p>
+<ol>
+<li><p>深入理解Android之Gradle:<a target="_blank" rel="noopener" href="http://blog.csdn.net/Innost/article/details/48228651">http://blog.csdn.net/Innost/article/details/48228651</a></p>
+</li>
+<li><p>Gradle构建最佳实践: <a target="_blank" rel="noopener" href="http://www.figotan.org/2016/04/01/gradle-on-android-best-practise/">http://www.figotan.org/2016/04/01/gradle-on-android-best-practise/</a></p>
+</li>
+</ol>
+<p>部分结合作者-Bonker 地址-<a target="_blank" rel="noopener" href="https://www.cnblogs.com/Bonker/p/5619458.html">https://www.cnblogs.com/Bonker/p/5619458.html</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/tomasonl?tab=repositories">秋实先生</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomasonl.github.io">https://tomasonl.github.io</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归属Tomasonl秋实先生所有，如有转载请注明出处</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a></div><div class="post_share"><div class="social-share" data-image="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WechatPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WechatPay.jpg"/></a><div class="post-qr-code-desc"></div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/Alipay.jpg"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/02/26/%E8%BF%9C%E7%A6%BB%E7%94%B5%E5%AD%90%E6%AF%92%E5%93%81/"><img class="prev-cover" src="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d32111215.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">远离电子毒品</div></div></a></div><div class="next-post pull-right"><a href="/2020/01/29/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/maven.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生活随笔</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/04/06/Java多线程/" title="JAVA多线程"><img class="cover" src="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-06</div><div class="title">JAVA多线程</div></div></a></div><div><a href="/2020/02/28/权限管理/" title="权限管理相关"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/%E5%A3%81%E7%BA%B8/%E5%A3%81%E7%BA%B8001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-28</div><div class="title">权限管理相关</div></div></a></div><div><a href="/2020/01/01/日常工作记录-Tomasonl/" title="日常工作记录总结帖"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E7%BA%AA%E5%BE%8B.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-01</div><div class="title">日常工作记录总结帖</div></div></a></div><div><a href="/2020/12/02/分布式微服务治理/" title="分布式微服务治理"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-02</div><div class="title">分布式微服务治理</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Tomasonlee</div><div class="author-info__description">厚积薄发，行胜于言</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tomasonl"><i class="fab fa-github"></i><span>关注一波 O(∩_∩)O</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/tomasonl" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://tomasonl.cloudstudio.net/dashboard/workspace" target="_blank" title="CloudStudio"><i class="fas fa-cloud"></i></a><a class="social-icon" href="https://gitee.com/tomasonl" target="_blank" title="Gitee"><i class="fab fa-git-square"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81Maven%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">一、Maven介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81maven%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.1.</span> <span class="toc-text">一、maven介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%88%86%E6%A8%A1%E5%9D%97%E5%BC%80%E5%8F%91"><span class="toc-number">1.2.</span> <span class="toc-text">二、分模块开发</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Gradle%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">二、Gradle介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81Gradle%E4%BB%8B%E7%BB%8D-Groove%E8%AF%AD%E8%A8%80"><span class="toc-number">2.1.</span> <span class="toc-text">一、Gradle介绍+Groove语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Gradle%E7%BB%84%E6%88%90"><span class="toc-number">2.2.</span> <span class="toc-text">二、Gradle组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E5%B8%B8%E8%A7%81%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text">三、常见配置</span></a></li></ol></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By Tomasonlee</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厚积薄发，行胜于言！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>

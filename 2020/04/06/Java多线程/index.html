@@ -1,0 +1,199 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>JAVA多线程 | 李响的技术博客</title><meta name="keywords" content="工作记录"><meta name="author" content="Tomasonlee"><meta name="copyright" content="Tomasonlee"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="1，线程和进程   一个进程执行过程中可以有多个线程，同类多个线程共享进程的堆和方法区，独享程序计数器、虚拟机栈和本地方法栈。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JAVA多线程">
+<meta property="og:url" content="http://tomasonl.github.io/2020/04/06/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/index.html">
+<meta property="og:site_name" content="李响的技术博客">
+<meta property="og:description" content="1，线程和进程   一个进程执行过程中可以有多个线程，同类多个线程共享进程的堆和方法区，独享程序计数器、虚拟机栈和本地方法栈。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png">
+<meta property="article:published_time" content="2020-04-05T22:12:39.000Z">
+<meta property="article:modified_time" content="2020-12-05T01:27:19.431Z">
+<meta property="article:author" content="Tomasonlee">
+<meta property="article:tag" content="工作记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png"><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="http://tomasonl.github.io/2020/04/06/Java%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-12-05 09:27:19'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="李响的技术博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">李响的技术博客</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">JAVA多线程</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-04-05T22:12:39.000Z" title="发表于 2020-04-06 06:12:39">2020-04-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-12-05T01:27:19.431Z" title="更新于 2020-12-05 09:27:19">2020-12-05</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="1，线程和进程"><a href="#1，线程和进程" class="headerlink" title="1，线程和进程"></a>1，线程和进程</h2><p>   一个进程执行过程中可以有多个线程，同类多个线程共享进程的堆和方法区，独享程序计数器、虚拟机栈和本地方法栈。</p>
+<a id="more"></a>
+
+<p>堆：存放对象实例，几乎所有的对象实例都在这里分配内存。<br>方法区：已被虚拟机加载的(元空间) 类信息、常量、静态变量、编译代码</p>
+<p>虚拟机栈：每个方法被执行同时创建一个栈帧，存储局部变量表、操作栈、动态链接、方法出口等信息 。<br>本地方法栈：本地方法栈则是为虚拟机使用到的Native方法服务。<br>(二者保护线程中的局部变量不被别的线程所访问，so私有的啦）<br>程序计数器：字节码解释器通过改变程序计数器实现流程控制、多线程情况下给线程记录位置（so肯定是私有的啦）。也是唯一不会 OutOfMemoryError 的内存区，生命周期随着线程的而创建和销毁。</p>
+<h2 id="2-上下文切换"><a href="#2-上下文切换" class="headerlink" title="2,上下文切换"></a>2,上下文切换</h2><p>     一个CPU在任意时刻只能被一个线程所使用，为了让每一个线程有效执行就给他们分配了时间片进行轮转。当任务执行完当前时间片在进入下一个时间片之前进行状态保存，以便下次使用加载。这个过程就是上下文切换。（纳秒级，Linux&gt;win）</p>
+<h2 id="3-死锁？如何避免？"><a href="#3-死锁？如何避免？" class="headerlink" title="3,死锁？如何避免？"></a>3,死锁？如何避免？</h2><p>多个线程同时被阻塞，都在等待某个资源被释放。</p>
+<p>public class DeadLockDemo {<br>    private static Object resource1 = new Object();//资源 1<br>    private static Object resource2 = new Object();//资源 2</p>
+<pre><code>public static void main(String[] args) &#123;
+    new Thread(() -&gt; &#123;
+    synchronized (resource1) &#123;
+        System.out.println(Thread.currentThread() + &quot;getresource1&quot;);
+        try &#123;
+            Thread.sleep(1000);
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(Thread.currentThread() + &quot;waitingget resource2&quot;);
+        synchronized (resource2) &#123;
+            System.out.println(Thread.currentThread() + &quot;getresource2&quot;);
+            &#125;
+        &#125;
+    &#125;, &quot;线程 1&quot;).start();
+
+    new Thread(() -&gt; &#123;
+        synchronized (resource2) &#123;
+            System.out.println(Thread.currentThread() + &quot;getresource2&quot;);
+        try &#123;
+            Thread.sleep(1000);
+        &#125; catch (InterruptedException e) &#123;
+            e.printStackTrace();
+        &#125;
+        System.out.println(Thread.currentThread() + &quot;waitingget resource1&quot;);
+
+        synchronized (resource1) &#123;
+            System.out.println(Thread.currentThread() + &quot;getresource1&quot;);
+          &#125;
+        &#125;
+    &#125;, &quot;线程 2&quot;).start();
+&#125;</code></pre>
+<p>}<br>输出结果：</p>
+<p>Thread[线程 1,5,main]get resource1<br>Thread[线程 2,5,main]get resource2<br>Thread[线程 1,5,main]waiting get resource2<br>Thread[线程 2,5,main]waiting get resource1<br>两个线程休眠结束都会开始请求对方资源，线程进入互相等待状态。产生锁的四个条件和避免方式如下：</p>
+<p>互斥：资源在任意时刻只能被一个线程调用。（无法破坏，临界资源有互斥访问的必要性）<br>请求与保持：进程因请求资源阻塞时，不释放现有资源。（一次性申请所有资源）<br>不剥夺：线程获得的资源没用完释放之前不能被剥夺。（申请不到，主动释放自占资源）<br>循环等待：几个进程形成头尾相接的循环等待。（按序申请）</p>
+<h2 id="4，sleep（）和wait（）的区别和共同点？"><a href="#4，sleep（）和wait（）的区别和共同点？" class="headerlink" title="4，sleep（）和wait（）的区别和共同点？"></a>4，sleep（）和wait（）的区别和共同点？</h2><p>都可以暂停线程，Thread类的方法：sleep(),yield()等Object的方法：wait()和notify()等<br>sleep没有释放锁，暂停执行。wait释放了锁，用于线程间交互。wait不会自动苏醒，需要别的线程调用同一个对象的notify或者notifyall方法。sleep传入参数自动唤醒。<br>[      为什么wait、notify和notifyAll方法要和synchronized关键字一起使用?因为wait方法使一个线程进入等待状态，并释放其所持有的锁对象，notify方法是通知等待该锁对象的线程重新获得锁对象。所以前提是获得锁对象。锁对象就像一个传话的人，他对某个线程说停下来等待，然后对另一个线程说你可以执行了（实质上是被捕获了），这一过程是线程通信。sleep方法是让某个线程暂停运行一段时间，其控制范围是由当前线程决定，运行的主动权是由当前线程来控制（拥有CPU的执行权）]。<br>sleep是你困了，要睡觉，等你睡醒了再干活。<br>wait是你现在没事做，先眯会儿吧，什么时候领导提醒你该干活了再干。</p>
+<h2 id="5，start（）和run（）方法？"><a href="#5，start（）和run（）方法？" class="headerlink" title="5，start（）和run（）方法？"></a>5，start（）和run（）方法？</h2><p>       新建(new)一个Thread线程，调用start()启动线程进入就绪状态，分配到时间片就运行。start()执行线程相应准备工作然后自动执行run()的内容。 单独直接run()的话就是Thread里面的一个普通方法而已。</p>
+<h2 id="6，synchronized关键字"><a href="#6，synchronized关键字" class="headerlink" title="6，synchronized关键字"></a>6，synchronized关键字</h2><p>    解决的是多个线程间访问资源的同步性。被其修饰的方法或者代码块在任意时刻只能有一个线程执行。</p>
+<p>    修饰实例方法:作用于当前对象实例加锁，进入同步代码前要获得当前对象实例的锁。<br>    修饰静态方法:也就是给当前类加锁，会作用于类的所有对象实例，因为静态成员不属于任何一个实例对象，是类成员（ static表明这是该类的一个静态资源，不管new了多少个对象，只有一份）。所以如果一个线程A调用一个实例对象的非静态synchronized方法，而线程B需要调用这个实例对象所属类的静态 synchronized方法，是允许的，不会发生互斥现象，因为访问静态 synchronized方法占用的锁是当前类的锁，而访问非静态 synchronized方法占用的锁是当前实例对象锁。<br>    修饰代码块:指定加锁对象，对给定对象加锁，进入同步代码库前要获得给定对象的锁。</p>
+<p>    总结: synchronized关键字加到 static静态方法和 synchronized（ class）代码块上都是是给Cass类上锁。 synchronized关键字加到实例方法上是给对象实例上锁。尽量不要使用 synchronized（ string a）因为VM中，字符串常量池具有缓存功能。</p>
+<h2 id="7，说说JDK16之后的-synchronized关键字底层做了哪些优化？"><a href="#7，说说JDK16之后的-synchronized关键字底层做了哪些优化？" class="headerlink" title="7，说说JDK16之后的 synchronized关键字底层做了哪些优化？"></a>7，说说JDK16之后的 synchronized关键字底层做了哪些优化？</h2><p>         jDK1.6锁的实现引入了，如偏向锁、轻量级锁、自旋锁、适应性自旋锁、锁消除、锁粗化等技术来减少锁操作的开销。</p>
+<p>锁主要存在四种状态，依次是:无锁状态、偏向锁状态、轻量级锁状态、重量级锁状态，随着竞争激烈而逐渐升级。但是不可降级，这种策略是为了提髙获得锁和释放锁的效率。</p>
+<h2 id="8，synchronized关键字和-volatile关键字的区别"><a href="#8，synchronized关键字和-volatile关键字的区别" class="headerlink" title="8，synchronized关键字和 volatile关键字的区别"></a>8，synchronized关键字和 volatile关键字的区别</h2><p>      volatile关键字是线程同步的轻量级实现，性能稍微好些。但 volatile只修饰变量。<br>      synchronized关键字后来引入的偏向锁和轻量级锁等优化方式提升了效率，实际开发场景还是较多。<br>      volatile多线程访问 不会发生阻塞，而 synchronized关键字可能会发生阻塞。<br>      volatile保证数据可见性，但不保证原子性。synchronized关键字两者都能保证。<br>      volatile主要用于解决变量在多个线程之间的可见性，而 synchronized解决的是多个线程之间访问资源的同步性。<br>————————————————<br>版权声明：本文为CSDN博主「Leo秋实先生」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37676429/article/details/105356634">https://blog.csdn.net/m0_37676429/article/details/105356634</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/tomasonl?tab=repositories">秋实先生</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomasonl.github.io">https://tomasonl.github.io</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归属Tomasonl秋实先生所有，如有转载请注明出处</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a></div><div class="post_share"><div class="social-share" data-image="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WechatPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WechatPay.jpg"/></a><div class="post-qr-code-desc"></div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/Alipay.jpg"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2020/04/30/MarkDown%E8%AF%AD%E6%B3%95%E6%80%BB%E7%BB%93/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/markdonw.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">MarkDown语法总结</div></div></a></div><div class="next-post pull-right"><a href="/2020/03/01/%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/%E5%9B%BE%E6%A0%87/6b10a1394518299ba052019589ecb2e7.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">个人简历</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/02/01/Maven和Gradle项目构建/" title="Maven和Grade构建项目"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-01</div><div class="title">Maven和Grade构建项目</div></div></a></div><div><a href="/2020/02/28/权限管理/" title="权限管理相关"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/%E5%A3%81%E7%BA%B8/%E5%A3%81%E7%BA%B8001.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-28</div><div class="title">权限管理相关</div></div></a></div><div><a href="/2020/01/01/日常工作记录-Tomasonl/" title="日常工作记录总结帖"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E5%B7%A5%E4%BD%9C%E7%BA%AA%E5%BE%8B.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-01-01</div><div class="title">日常工作记录总结帖</div></div></a></div><div><a href="/2020/12/02/分布式微服务治理/" title="分布式微服务治理"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E5%88%86%E5%B8%83%E5%BC%8F%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%B2%BB%E7%90%86.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-02</div><div class="title">分布式微服务治理</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Tomasonlee</div><div class="author-info__description">厚积薄发，行胜于言</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tomasonl"><i class="fab fa-github"></i><span>关注一波 O(∩_∩)O</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/tomasonl" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://tomasonl.cloudstudio.net/dashboard/workspace" target="_blank" title="CloudStudio"><i class="fas fa-cloud"></i></a><a class="social-icon" href="https://gitee.com/tomasonl" target="_blank" title="Gitee"><i class="fab fa-git-square"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%EF%BC%8C%E7%BA%BF%E7%A8%8B%E5%92%8C%E8%BF%9B%E7%A8%8B"><span class="toc-number">1.</span> <span class="toc-text">1，线程和进程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%8A%E4%B8%8B%E6%96%87%E5%88%87%E6%8D%A2"><span class="toc-number">2.</span> <span class="toc-text">2,上下文切换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%AD%BB%E9%94%81%EF%BC%9F%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%EF%BC%9F"><span class="toc-number">3.</span> <span class="toc-text">3,死锁？如何避免？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4%EF%BC%8Csleep%EF%BC%88%EF%BC%89%E5%92%8Cwait%EF%BC%88%EF%BC%89%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E5%85%B1%E5%90%8C%E7%82%B9%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">4，sleep（）和wait（）的区别和共同点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5%EF%BC%8Cstart%EF%BC%88%EF%BC%89%E5%92%8Crun%EF%BC%88%EF%BC%89%E6%96%B9%E6%B3%95%EF%BC%9F"><span class="toc-number">5.</span> <span class="toc-text">5，start（）和run（）方法？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6%EF%BC%8Csynchronized%E5%85%B3%E9%94%AE%E5%AD%97"><span class="toc-number">6.</span> <span class="toc-text">6，synchronized关键字</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7%EF%BC%8C%E8%AF%B4%E8%AF%B4JDK16%E4%B9%8B%E5%90%8E%E7%9A%84-synchronized%E5%85%B3%E9%94%AE%E5%AD%97%E5%BA%95%E5%B1%82%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BC%98%E5%8C%96%EF%BC%9F"><span class="toc-number">7.</span> <span class="toc-text">7，说说JDK16之后的 synchronized关键字底层做了哪些优化？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8%EF%BC%8Csynchronized%E5%85%B3%E9%94%AE%E5%AD%97%E5%92%8C-volatile%E5%85%B3%E9%94%AE%E5%AD%97%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">8.</span> <span class="toc-text">8，synchronized关键字和 volatile关键字的区别</span></a></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 By Tomasonlee</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厚积薄发，行胜于言！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
