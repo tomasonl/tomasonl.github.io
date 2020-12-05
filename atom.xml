@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2020-12-05T01:27:18.373Z</updated>
+  <updated>2020-12-05T03:00:47.391Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>SM2国密算法-学习札记</title>
+    <link href="http://tomasonl.github.io/2020/12/05/SM2%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95-%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/"/>
+    <id>http://tomasonl.github.io/2020/12/05/SM2%E5%9B%BD%E5%AF%86%E7%AE%97%E6%B3%95-%E5%AD%A6%E4%B9%A0%E6%9C%AD%E8%AE%B0/</id>
+    <published>2020-12-05T02:56:59.000Z</published>
+    <updated>2020-12-05T03:00:47.391Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>国密算法是我国自主研发创新的一套数据加密处理系列算法。从SM1-SM4分别实现了对称、非对称、摘要等算法功能。特别适合应用于嵌入式物联网等相关领域，完成身份认证和数据加解密等功能。当然，默认的前提条件是算法密钥必须保证安全性，因此要将国密算法嵌入到硬件加密芯片中结合使用。</p><h1 id="算法介绍"><a href="#算法介绍" class="headerlink" title="算法介绍"></a>算法介绍</h1><p>国密即国家密码局认定的国产密码算法。主要有SM1，SM2，SM3，SM4。密钥长度和分组长度均为128位。</p><ul><li>SM1 为对称加密。其加密强度与AES相当。该算法不公开，调用该算法时，需要通过加密芯片的接口进行调用。</li><li>SM2为非对称加密，基于ECC。该算法已公开。由于该算法基于ECC，故其签名速度与秘钥生成速度都快于RSA。ECC 256位（SM2采用的就是ECC 256位的一种）安全强度比RSA 2048位高，但运算速度快于RSA。</li><li>SM3 消息摘要。可以用MD5作为对比理解。该算法已公开。校验结果为256位。</li><li>SM4 无线局域网标准的分组数据算法。对称加密，密钥长度和分组长度均为128位。<br>由于SM1、SM4加解密的分组大小为128bit，故对消息进行加解密时，若消息长度过长，需要进行分组，要消息长度不足，则要进行填充。</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>分布式微服务治理</title>
