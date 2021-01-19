@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://tomasonl.github.io/2021/01/18/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F001/</loc>
+    
+    <lastmod>2021-01-19</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://tomasonl.github.io/2021/01/17/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%942/</loc>
     
     <lastmod>2021-01-17</lastmod>
@@ -193,7 +200,7 @@
 
   <url>
     <loc>http://tomasonl.github.io/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -201,35 +208,35 @@
   
   <url>
     <loc>http://tomasonl.github.io/tags/%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://tomasonl.github.io/tags/%E7%AE%80%E5%8E%86%E4%B8%AD%E5%BF%83/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
     <loc>http://tomasonl.github.io/tags/%E5%AD%A6%E4%B9%A0%E5%8E%86%E7%A8%8B/</loc>
-    <lastmod>2021-01-17</lastmod>
+    <lastmod>2021-01-19</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>

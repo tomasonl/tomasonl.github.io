@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-01-17T12:36:09.253Z</updated>
+  <updated>2021-01-19T00:27:26.829Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>秒杀系统001</title>
+    <link href="http://tomasonl.github.io/2021/01/18/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F001/"/>
+    <id>http://tomasonl.github.io/2021/01/18/%E7%A7%92%E6%9D%80%E7%B3%BB%E7%BB%9F001/</id>
+    <published>2021-01-18T08:29:32.000Z</published>
+    <updated>2021-01-19T00:27:26.829Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><img src="http://note.youdao.com/noteshare?id=a9fa894e69fd68f9fca3297d13845d51&sub=7DC841B52F2A417C96BB88827B5B2929"><img src="http://note.youdao.com/noteshare?id=a9fa894e69fd68f9fca3297d13845d51&sub=7DC841B52F2A417C96BB88827B5B2929"><p>utf8和utf8mb4的区别<br>   MySQL在5.5.3之后增加了这个utf8mb4的编码，mb4就是most bytes 4的意思，专门用来兼容四字节的unicode。好在utf8mb4是utf8的超集，除了将编码改为utf8mb4外不需要做其他转换。一般情况下使用utf8也就够了。<br>   既然utf8能够存下大部分中文汉字,那为什么还要使用utf8mb4呢? 原来mysql支持的 utf8 编码最大字符长度为 3 字节，如果遇到 4 字节的宽字符就会插入异常了。三个字节的 UTF-8 最大能编码的 Unicode 字符是 0xffff，也就是 Unicode 中的基本多文种平面(BMP)。utf8 不支持任何不在基本多文本平面的 Unicode字符。包括 Emoji 表情(Emoji 是一种特殊的 Unicode 手机上常见)、生僻字等等。</p><p>/*<br> Navicat Premium Data Transfer</p><p> Source Server         : 本地数据库<br> Source Server Type    : MySQL<br> Source Server Version : 80022<br> Source Host           : localhost:3306<br> Source Schema         : seckill</p><p> Target Server Type    : MySQL<br> Target Server Version : 80022<br> File Encoding         : 65001</p><p> Date: 18/01/2021 10:38:24<br>*/</p><p>SET NAMES utf8mb4;<br>SET FOREIGN_KEY_CHECKS = 0;</p><hr><p>– Table structure for t_user</p><hr><p>DROP TABLE IF EXISTS <code>t_user</code>;<br>CREATE TABLE <code>t_user</code>  (<br>  <code>id</code> bigint NOT NULL COMMENT ‘用户id，手机号码’,<br>  <code>nickname</code> varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,<br>  <code>password</code> varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT ‘Md5加密 两次’,<br>  <code>slat</code> varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT ‘ 加盐’,<br>  <code>head</code> varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT ‘头像’,<br>  <code>register_date</code> datetime NULL DEFAULT NULL COMMENT ‘注册时间’,<br>  <code>last_login_date</code> datetime NULL DEFAULT NULL,<br>  <code>login_count</code> int NULL DEFAULT 0 COMMENT ‘登录次数’,<br>  PRIMARY KEY (<code>id</code>) USING BTREE<br>) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;</p><hr><p>– Records of t_user</p><hr><p>SET FOREIGN_KEY_CHECKS = 1;</p><p>Md5加密Util<br>package com.xxxx.seckill.util;</p><p>import org.apache.commons.codec.digest.DigestUtils;</p><p>/*<br> *@program:seckill-demo<br> *@author: Tomasonlee<br> *@Time: 2021/1/18  10:43<br> */<br>public class Md5Util {<br>    public static String md5(String args) {<br>        return DigestUtils.md5Hex(args);<br>    }<br>    private static final String salt=”1a2b3c4d”;</p><pre><code>public static String inputPassToFormPass(String inputPass)&#123;    String str = salt.charAt(0)+salt.charAt(2)+inputPass+salt.charAt(5)+salt.charAt(4);    return md5(str);&#125;//二次加密  后端密码到数据库密码public static String fromPassToDBPass(String formPass,String salt)&#123;    String str = salt.charAt(0)+salt.charAt(2)+formPass+salt.charAt(5)+salt.charAt(4);    return md5(str);&#125;public static String inputPassToDBPass(String inputPass,String salt)&#123;    String fromPass = inputPassToFormPass(inputPass);    String dbPass = fromPassToDBPass(fromPass,salt);    return dbPass;&#125;</code></pre><p>//    public static void main(String[] args) {<br>//        System.out.println(inputPassToFormPass(“123456”));<br>//        System.out.println(fromPassToDBPass(“ce21b747de5af71ab5c2e20ff0a60eea”,”1a2b3c4d”));<br>//        System.out.println(inputPassToDBPass(“123456”,”1a2b3c4d”));<br>//    }</p><p>}</p><p>代码JSR303参数校验简化代码<br>依赖</p><!-- validation组件 --><dependency>    <groupId>org.springframework.boot</groupId>    <artifactId>spring-boot-starter-validation</artifactId></dependency><p>@Valid注解<br>public RespBean doLogin(@Valid LoginVo loginVo){<br>    log.info(“输入的登录信息为{}”,loginVo);<br>    return userService.doLogin(loginVo);<br>}</p><p>@notnull等注解 + 自定义注解<br>@Data<br>public class LoginVo {<br>    @NotNull<br>    @IsMobile<br>    private String mobile;<br>    @NotNull<br>    @Length(min=32)<br>    private String password;<br>}</p><p>自定义注解@IsMobile<br>package com.xxxx.seckill.validator;</p><p>import javax.validation.Constraint;<br>import javax.validation.Payload;<br>import java.lang.annotation.*;</p><p>/*<br> *@program:seckill-demo<br> *@author: Tomasonlee<br> *@Time: 2021/1/18  19:16</p><ul><li><p>lee写的第一个自定义注解</p></li><li><p>/<br>@Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})<br>@Retention(RetentionPolicy.RUNTIME)<br>@Documented<br>@Constraint(</p><pre><code>  validatedBy = &#123;IsMobileValidator.class&#125;</code></pre><p>)<br>public @interface IsMobile {</p><p>  boolean required() default true;</p><p>  String message() default “手机号码格式错误”;</p><p>  Class&lt;?&gt;[] groups() default {};</p><p>  Class&lt;? extends Payload&gt;[] payload() default {};<br>}</p></li></ul><p>IsMobileValidator<br>package com.xxxx.seckill.validator;</p><p>import com.xxxx.seckill.util.ValidatorUtil;<br>import org.springframework.util.StringUtils;</p><p>import javax.validation.ConstraintValidator;<br>import javax.validation.ConstraintValidatorContext;</p><p>/*<br> *@program:seckill-demo<br> *@author: Tomasonlee<br> *@Time: 2021/1/18  19:19<br> */<br>public class IsMobileValidator implements ConstraintValidator&lt;IsMobile, String&gt; {<br>    private boolean required = false;</p><pre><code>@Overridepublic void initialize(IsMobile constraintAnnotation) &#123;    required = constraintAnnotation.required();&#125;@Overridepublic boolean isValid(String value, ConstraintValidatorContext context) &#123;    if (required) &#123;        return ValidatorUtil.isMobile(value);    &#125; else &#123;        if (StringUtils.isEmpty(value)) &#123;            return true;        &#125; else &#123;            return ValidatorUtil.isMobile(value);        &#125;    &#125;&#125;</code></pre><p>}</p><p>ValidatorUtil<br>package com.xxxx.seckill.util;</p><p>import org.springframework.util.StringUtils;</p><p>import java.util.regex.Matcher;<br>import java.util.regex.Pattern;</p><p>/*<br> *@program:seckill-demo<br> *@author: Tomasonlee<br> *@Time: 2021/1/18  19:23<br> */<br>public class ValidatorUtil {<br>    private static final Pattern mobile_pattern = Pattern.compile(“<a href="%5B3-9%5D">1</a>[0-9]{9}$”);</p><pre><code>public static boolean isMobile(String mobile) &#123;    if (StringUtils.isEmpty(mobile)) &#123;        return false;    &#125;    Matcher matcher = mobile_pattern.matcher(mobile);    return matcher.matches();&#125;</code></pre><p>}</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>生活随笔3</title>
@@ -416,28 +438,6 @@
     
     
     <category term="生活随笔" scheme="http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>你好，我的朋友！</title>
-    <link href="http://tomasonl.github.io/2020/01/01/%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E7%9A%84%E6%9C%8B%E5%8F%8B/"/>
-    <id>http://tomasonl.github.io/2020/01/01/%E4%BD%A0%E5%A5%BD%EF%BC%8C%E6%88%91%E7%9A%84%E6%9C%8B%E5%8F%8B/</id>
-    <published>2020-01-01T10:43:33.000Z</published>
-    <updated>2020-12-05T01:27:18.372Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="快速引导"><a href="#快速引导" class="headerlink" title="快速引导"></a>快速引导</h2><p><strong>Hexo 的基本命令</strong><br>$ hexo clean #清除生成的博客静态文件<br>$ hexo g #生成博客静态文件=命令hexo generate<br>$ hexo s #启动博客的本地预览=命令hexo server<br>$ hexo d #推送博客到远程仓库=命令hexo deploy<br>$ hexo new page xxx #新建名为”xxx”的页面<br>$ hexo new xxx #新建名为”xxx”的文章<br>$ hexo d -g #生成静态博客并推送到Git远程仓库<br>$ hexo s -g #生成静态博客并启动本地预览</p><h3 id="新建一个博客"><a href="#新建一个博客" class="headerlink" title="新建一个博客"></a>新建一个博客</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure><p>友情链接: <a href="https://hexo.io/docs/writing.html">Writing</a></p><h3 id="启动服务器"><a href="#启动服务器" class="headerlink" title="启动服务器"></a>启动服务器</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>当然，也可以直接发布到github，不用本地启动<br>友情链接: <a href="https://hexo.io/docs/server.html">Server</a></p><h3 id="生产静态文件"><a href="#生产静态文件" class="headerlink" title="生产静态文件"></a>生产静态文件</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>友情链接: <a href="https://hexo.io/docs/generating.html">Generating</a></p><h3 id="部署到远程仓库"><a href="#部署到远程仓库" class="headerlink" title="部署到远程仓库"></a>部署到远程仓库</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo:</span><br><span class="line">    github: https:&#x2F;&#x2F;github.com&#x2F;tomasonl&#x2F;tomasonl.github.io.git</span><br><span class="line">    coding: git@e.coding.net:tomasonl&#x2F;tomasonl&#x2F;tomasonl.coding.me.git</span><br><span class="line">    # coding: https:&#x2F;&#x2F;e.coding.net&#x2F;tomasonl&#x2F;tomasonl&#x2F;tomasonl.coding.me.git</span><br><span class="line">    gitee: https:&#x2F;&#x2F;gitee.com&#x2F;tomasonl&#x2F;tomasonl</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure><p>SSH部署或者Http部署地址均可<br>也可以直接Hexo d -g  完成上面两个步骤</p><h2 id="附加功能设置："><a href="#附加功能设置：" class="headerlink" title="附加功能设置："></a><strong>附加功能设置：</strong></h2><h3 id="添加视频"><a href="#添加视频" class="headerlink" title="添加视频"></a>添加视频</h3><p>哔哩哔哩-视频格式如下</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% raw %&#125;</span><br><span class="line"></span><br><span class="line">&lt;div style&#x3D;&quot;position: relative; width: 100%; height: 0; padding-bottom: 75%;&quot;&gt;</span><br><span class="line">    &lt;iframe src&#x3D;&quot;&#x2F;&#x2F;player.bilibili.com&#x2F;player.html?aid&#x3D;93813318&amp;bvid&#x3D;BV18E411x7eT&amp;cid&#x3D;160169443&amp;page&#x3D;22&quot; scrolling&#x3D;&quot;no&quot; border&#x3D;&quot;0&quot; frameborder&#x3D;&quot;no&quot; framespacing&#x3D;&quot;0&quot; allowfullscreen&#x3D;&quot;true&quot; style&#x3D;&quot;position: absolute; width: 100%; height: 100%; left: 0; top: 0;&quot;&gt; &lt;&#x2F;iframe&gt;</span><br><span class="line">&lt;&#x2F;div&gt;</span><br><span class="line"></span><br><span class="line">&#123;% endraw %&#125;</span><br></pre></td></tr></table></figure><h3 id="开启下载"><a href="#开启下载" class="headerlink" title="开启下载"></a><strong>开启下载</strong></h3><p>post_asset_folder: true</p><h3 id="设置文章Cover"><a href="#设置文章Cover" class="headerlink" title="设置文章Cover"></a>设置文章Cover</h3><p>在文章头部设置cover：+链接；</p><p>友情链接: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="工具模块" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/"/>
     
   </entry>
   
