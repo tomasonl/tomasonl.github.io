@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-02-10T01:44:30.191Z</updated>
+  <updated>2021-02-23T03:45:30.319Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分布式微服务治理</title>
+    <link href="http://tomasonl.github.io/2021/02/20/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98/"/>
+    <id>http://tomasonl.github.io/2021/02/20/%E9%98%BF%E9%87%8C%E4%BA%91CDN%E6%9E%B6%E6%9E%84%E6%BC%94%E5%8F%98/</id>
+    <published>2021-02-20T08:29:32.000Z</published>
+    <updated>2021-02-23T03:45:30.319Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>阿里云CDN-演变之路</strong></p><p>​                                                                  ——阿里云高级开发工程师 邓茜(沐沂)</p><ul><li>静态资源分发</li><li>动态资源加速</li><li>源站保护机制</li><li>SSL、HTTP</li></ul><p>5000+边缘节点，中美节点之间解决网络延迟大的问题；</p><p><strong>Service-Mesh Webinar</strong></p><p>“Webinar”——网络视频研讨会,是基于互联网实现点对点连接,可以集成幻灯片演示文稿、音频或视频文件于一体,能将企业所要求推广的信息立体呈现.</p><p><strong>节点架构:</strong></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\2df9565aec2f4a6d9c187bdd2cede6df\clipboard.png" alt="img"></p><p><strong>从以上架构看到一些问题：</strong></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\644aa7d2bb1a4f4cb6bccbbb7e29c853\clipboard.png" alt="img"></p><p><strong>所以调整了微服务架构如下：</strong></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\d331dca6b98642aa8295d6fde0aab74b\clipboard.png" alt="img"></p><p><strong>技术方案—第一阶段：基于CoreDNS的服务发现</strong></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\b6e056d7b099419ea2bcc4df0879634b\clipboard.png" alt="img"></p><p>修改DNS IP和策略</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\6eed69aa35b94fa6a093c8001eb7f2ec\clipboard.png" alt="img"></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\92e786821723433f957f3b6ee2f12b36\clipboard.png" alt="img"></p><p>UDP转发、伪连接；</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\34c830461ac34ce5987e4b531d8a466f\clipboard.png" alt="img"></p><p>广播，向所有host 转发请求，在streamFilter里面实现。</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\941a53f5273a4b3f943de9dc8b33f7a0\clipboard.png" alt="img"></p><p><strong>技术方案—第二阶段：ServiceMesh架构</strong></p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\d5e48c9a98fa47e3b8f90d5abceca1d0\clipboard.png" alt="img"></p><p>pilot </p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\d9bcad1dddeb407cba63e5a71aea6c39\clipboard.png" alt="img"></p><p>小特点：跨容器的热升级；</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\7ab95c33235044de9619ae8e51d3b31f\clipboard.png" alt="img"></p><p>Istio适配</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\92377dd492ae4d8ca07babcd77b20870\clipboard.png" alt="img"></p><p>协议</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\755768df0ca64bbbac0c7f90acef1f5d\clipboard.png" alt="img"></p><p>新增服务，导入顺序</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\e73628c735a240f9ab0c6cdb3e248050\clipboard.png" alt="img"></p><p><strong>总结</strong></p><p>目前落地几十个IDC、完善节点动态监控等</p><p>后面需要加入虚机服务发现：</p><p><img src="C:\Users\LEO\AppData\Local\YNote\data\tomasonl@163.com\16bc7e1729304f55b5a1c61228a95c59\clipboard.png" alt="img"></p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
   
   <entry>
     <title>牛年大吉</title>
@@ -416,28 +438,6 @@
     
     
     <category term="生活随笔" scheme="http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Maven和Grade构建项目</title>
-    <link href="http://tomasonl.github.io/2020/02/01/Maven%E5%92%8CGradle%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"/>
-    <id>http://tomasonl.github.io/2020/02/01/Maven%E5%92%8CGradle%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/</id>
-    <published>2020-02-01T00:26:59.000Z</published>
-    <updated>2020-12-05T01:27:19.064Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="一、Maven介绍"><a href="#一、Maven介绍" class="headerlink" title="一、Maven介绍"></a>一、Maven介绍</h1><h2 id="一、maven介绍"><a href="#一、maven介绍" class="headerlink" title="一、maven介绍"></a>一、maven介绍</h2><p>maven 是一个项目管理工具，主要作用是在项目开发阶段对Java项目进行依赖管理和项目构建。<br>依赖管理：就是对jar包的管理。通过导入maven坐标，就相当于将仓库中的jar包导入了当前项目中。<br>项目构建：通过maven的一个命令就可以完成项目从清理、编译、测试、报告、打包，部署整个过程。</p><p>①maven中央仓库（地址：<a href="http://repo2.maven.org/maven2/%EF%BC%89">http://repo2.maven.org/maven2/）</a><br>②maven私服（公司局域网内的仓库，需要自己搭建）<br>③其他公共远程仓库（例如apache提供的远程仓库，地址：<a href="http://repo.maven.apache.org/maven2/%EF%BC%89">http://repo.maven.apache.org/maven2/）</a></p><p>clean： 清理<br>compile：编译<br>test： 测试<br>package：打包<br>install： 安装</p><h2 id="二、分模块开发"><a href="#二、分模块开发" class="headerlink" title="二、分模块开发"></a>二、分模块开发</h2><p>继承！！！parent！！！</p><p>聚合！！！ module！！！</p><p>Dependencies和dependencyManagement<br>dependencyManagement—–统一管理项目的版本号，确保应用的各个项目的依赖和版本一致，升级版本方便；<br>子项目需要特定版本号时，只需在其dependencies中声明，就可使用自己的不继承父类的。<br>dependencies—–所有声明在dependencies里的依赖都会自动引入，并默认被所有的子项目继承。</p><p>Build标签<br>一种<build>被称为Project Build，即是<project>子元素。另一种<build>被称为Profile Build，即是<profile>的直接子元素。</p><p>Profile Build包含了基本的build元素，而Project Build还包含两个特殊的元素，即各种&lt;…Directory&gt;和<extensions>。</p><p>plugins—用于指定使用的插件；pluginManagement只是用于继承，使得可以在子pom中使用。</p><h1 id="二、Gradle介绍"><a href="#二、Gradle介绍" class="headerlink" title="二、Gradle介绍"></a>二、Gradle介绍</h1><h2 id="一、Gradle介绍-Groove语言"><a href="#一、Gradle介绍-Groove语言" class="headerlink" title="一、Gradle介绍+Groove语言"></a>一、Gradle介绍+Groove语言</h2><p>       Gradle，使用Groovy语言基于Apache Ant和Apache Maven概念的项目自动化构建开源工具。<br>Groovy是一种基于JVM的语言，它结合了Python、Ruby强大的特性，与 Java 代码易结合、扩展。</p><p>2000Ant—2004Maven—2012Gradle</p><p>轻量化趋势，Gradle优点：简化Maven繁琐xml配置、强大支持多工程构建、Groove语言性能。</p><p>语法：</p><p>输出： println “hello，world！”———比较随意，单引号双引号随意，分号可以不加，括号也可以没有。给力！<br>定义变量：def 赋值决定变量—-类似js 也可以强类型定义 int a=666;不过没有基本类型，都是对象类型。<br>lList：def numbers = [1, 2, 3]；Groovy 不支持 Java 数组初始化符号 {}，因为 {} 可能会被曲解成 Groovy 闭包的符号；<br>Map：def colors = [red: ‘#FF0000’, green: ‘#00FF00’, blue: ‘#0000FF’]   <br>闭包：代码块，可以作为参数在方法之间传递。就是定义一个 def m{sout }<br>build.gradle—-局部设置</p><p>settings.gradle—全局设置</p><h2 id="二、Gradle组成"><a href="#二、Gradle组成" class="headerlink" title="二、Gradle组成"></a>二、Gradle组成</h2><ol><li><p>Project与Task<br>在Gradle中，每一个待构建的工程是一个Project，构建一个Project需要执行一系列Task，比如编译、打包这些构建过程的子过程都对应着一个Task。</p></li><li><p>插件<br>插件用来定义和执行Task。</p></li></ol><p>在新建工程的app模块的build.gradle文件的第一行，往往都是如下这句：</p><p>apply plugin: ‘com.android.application’<br>这句话的意思就是应用“com.android.application“这个插件来构建app模块，app模块就是Gradle中的一个Project。也就是说，这个插件负责定义并执行Java源码编译、资源文件编译、打包等一系列Task。实际上”com.android.application”整个插件中定义了如下4个顶级任务：</p><p>assemble: 构建项目的输出（apk）</p><p>check: 进行校验工作</p><p>build: 执行assemble任务与check任务</p><p>clean: 清除项目的输出</p><p>当我们执行一个任务时，会自动执行它所依赖的任务。比如，执行assemble任务会执行assembleDebug任务和assembleRelease任务，这是因为一个Android项目至少要有debug和release这两个版本的输出。</p><ol start="3"><li>Gradle配置文件<br>我们在Android Studio中新建一个工程，可以得到如下的工程结构图：</li></ol><p>上面我们说过，Android Studio中的一个Module即为Gradle中的一个Project。上图的app目录下，存在一个build.gradle文件，代表了app Module的构建脚本，它定义了应用于本模块的构建规则。我们可以看到，工程根目录下也存在一个build.gradle文件，它代表了整个工程的构建，其中定义了适用于这个工程中所有模块的构建规则。</p><p>接下来我们介绍一下上图中其他几个Gradle配置文件：</p><p>gradle.properties: 从它的名字可以看出，这个文件中定义了一系列“属性”。实际上，这个文件中定义了一系列供build.gradle使用的常量，比如keystore的存储路径、keyalias等等。</p><p>gradlew与gradlew.bat: gradlew为Linux下的shell脚本，gradlew.bat是Windows下的批处理文件。gradlew是gradle wrapper的缩写，也就是说它对gradle的命令进行了包装，比如我们进入到指定Module目录并执行“gradlew.bat assemble”即可完成对当前Module的构建（Windows系统下）。</p><p>local.properties: 从名字就可以看出来，这个文件中定义了一些本地属性，比如SDK的路径。</p><p>settings.gradle: 假如我们的项目包含了不只一个Module时，我们想要一次性构建所有Module以完成整个项目的构建，这时我们需要用到这个文件。比如我们的项目包含了ModuleA和ModuleB这两个模块，则这个文件中会包含这样的语句：include ‘:ModuleA’, ‘:ModuleB’。</p><ol start="4"><li>构建脚本<br>首先我们来看一下工程目录下的build.gradle，它指定了真个整个项目的构建规则，它的内容如下：</li></ol><p>buildscript {<br>    repositories {<br>        jcenter() //构建脚本中所依赖的库都在jcenter仓库下载<br>    }<br>    dependencies {<br>        //指定了gradle插件的版本<br>        classpath ‘com.android.tools.build:gradle:1.5.0’<br>    }<br>}</p><p>allprojects {<br>    repositories {<br>        //当前项目所有模块所依赖的库都在jcenter仓库下载<br>        jcenter()<br>    }<br>}</p><p>我们再来简单介绍下app模块的build.gradle的内容：</p><p>//加载用于构建Android项目的插件<br>apply plugin: ‘com.android.application’</p><p>android { //构建Android项目使用的配置<br>    compileSdkVersion 23 //指定编译项目时使用的SDK版本<br>    buildToolsVersion “23.0.1” //指定构建工具的版本</p><p>    defaultConfig {<br>        applicationId “com.absfree.debugframwork” //包名<br>        minSdkVersion 15  //指定支持的最小SDK版本<br>        targetSdkVersion 23 //针对的目标SDK版本<br>        versionCode 1<br>        versionName “1.0”<br>    }<br>    buildTypes { //针对不同的构建版本进行一些设置<br>        release { //对release版本进行的设置<br>            minifyEnabled false //是否开启混淆<br>            proguardFiles getDefaultProguardFile(‘proguard-android.txt’), ‘proguard-rules.pro’  //指定混淆文件的位置<br>        }<br>    }<br>}</p><p>dependencies { //指定当前模块的依赖<br>    compile fileTree(dir: ‘libs’, include: [‘*.jar’])<br>    testCompile ‘junit:junit:4.12’<br>    compile ‘com.android.support:appcompat-v7:23.1.1’<br>    compile ‘com.android.support:design:23.1.1’<br>}</p><h2 id="三、常见配置"><a href="#三、常见配置" class="headerlink" title="三、常见配置"></a>三、常见配置</h2><p>整个工程的build.gradle通常不需我们改动，这里我们介绍下一些对模块目录下build.gradle文件的常见配置。</p><ol><li>依赖第三方库<br>当我们的项目中用到了了一些第三方库时，我们就需要进行一些配置，以保证能正确导入相关依赖。设置方法很简单，比如我们在app模块中中用到了Fresco，只需要在build.gradle文件中的dependencies块添加如下语句：</li></ol><p>dependencies {<br>    …<br>    compile ‘com.facebook.fresco:fresco:0.11.0’<br>}<br>这样一来，Gradle会自动从jcenter仓库下载我们所需的第三方库并导入到项目中。</p><ol start="2"><li>导入本地jar包<br>在使用第三方库时，除了像上面那样从jcenter仓库下载，我们还可以导入本地的jar包。配置方法也很简单，只需要先把jar文件添加到app\libs目录下，然后在相应jar文件上单击右键，选择“Ad As Library”。然后在build.gradle的dependencies块下添加如下语句：</li></ol><p>compile files(‘libs/xxx.jar’)<br>实际上我们可以看到，系统为我们创建的build.gradle中就已经包含了如下语句：</p><p>compile fileTree(dir: ‘libs’, include: [‘*.jar’])<br>这句话的意思是，将libs目录下的所有jar包都导入。所以实际上我们只需要把jar包添加到libs目录下并“Ad As Library”即可。</p><ol start="3"><li>依赖其它模块<br>假设我们的项目包含了多个模块，并且app模块依赖other模块，那么我们只需app\build.gradle的denpendencies块下添加如下语句：</li></ol><p>compile project(‘:other’)<br>4. 构建输出为aar文件<br>通常我们构建的输出目标都是apk文件，但如果我们的当前项目时Android Library，我们的目标输出就是aar文件。要想达到这个目的也很容易，只需要把build.gradle的第一句改为如下：</p><p>apply plugin:’com.android.library’<br>这话表示我们使用的插件不再是构建Android应用的插件，而是构建Android Library的插件，这个插件定义并执行用于构建Android Library的一系列Task。</p><ol start="5"><li>自动移除不再使用的资源<br>只需进行如下配置：</li></ol><p>android {<br>    …<br>    }<br>    buildTypes {<br>        release {<br>            …<br>            shrinkResources true<br>            …<br>        }<br>    }<br>}<br><strong>TIPS：</strong></p><ol><li><p>深入理解Android之Gradle:<a href="http://blog.csdn.net/Innost/article/details/48228651">http://blog.csdn.net/Innost/article/details/48228651</a></p></li><li><p>Gradle构建最佳实践: <a href="http://www.figotan.org/2016/04/01/gradle-on-android-best-practise/">http://www.figotan.org/2016/04/01/gradle-on-android-best-practise/</a></p></li></ol><p>部分结合作者-Bonker 地址-<a href="https://www.cnblogs.com/Bonker/p/5619458.html">https://www.cnblogs.com/Bonker/p/5619458.html</a></p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
