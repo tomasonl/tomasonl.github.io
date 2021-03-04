@@ -1,0 +1,175 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Java开发-规范起来3 | 李响的技术博客</title><meta name="keywords" content="工作记录"><meta name="author" content="Tomasonlee"><meta name="copyright" content="Tomasonlee"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="(四) OOP 规约 【强制】避免通过一个类的对象引用访问此类的静态变量或静态方法，无谓增加编译器解析成本，直接用类名来访问即可。解释：不是说语法错，而是增加 jvm 成本，每增加一个对象变量，new 一个对象需要分配内存空间，增加无谓的内存消耗。调用时会去堆中检索对象，用类名访问只需要去方法区中找，减少了堆中检索的成本。 【强制】所有的覆写方法，必须加@Override 注解。说明：getObj">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java开发-规范起来3">
+<meta property="og:url" content="http://tomasonl.github.io/2021/03/14/Java%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83%E8%B5%B7%E6%9D%A53/index.html">
+<meta property="og:site_name" content="李响的技术博客">
+<meta property="og:description" content="(四) OOP 规约 【强制】避免通过一个类的对象引用访问此类的静态变量或静态方法，无谓增加编译器解析成本，直接用类名来访问即可。解释：不是说语法错，而是增加 jvm 成本，每增加一个对象变量，new 一个对象需要分配内存空间，增加无谓的内存消耗。调用时会去堆中检索对象，用类名访问只需要去方法区中找，减少了堆中检索的成本。 【强制】所有的覆写方法，必须加@Override 注解。说明：getObj">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg">
+<meta property="article:published_time" content="2021-03-14T07:29:35.000Z">
+<meta property="article:modified_time" content="2021-03-04T08:42:18.224Z">
+<meta property="article:author" content="Tomasonlee">
+<meta property="article:tag" content="工作记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg"><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="http://tomasonl.github.io/2021/03/14/Java%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83%E8%B5%B7%E6%9D%A53/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-04 16:42:18'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="李响的技术博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&amp;fm=26&amp;gp=0.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">李响的技术博客</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 光阴轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 娱乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 网站盒子</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于秋实</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">Java开发-规范起来3</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-14T07:29:35.000Z" title="发表于 2021-03-14 15:29:35">2021-03-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-04T08:42:18.224Z" title="更新于 2021-03-04 16:42:18">2021-03-04</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="四-OOP-规约"><a href="#四-OOP-规约" class="headerlink" title="(四) OOP 规约"></a>(四) OOP 规约</h2><ol>
+<li>【强制】避免通过一个类的对象引用访问此类的静态变量或静态方法，无谓增<br>加编译器解析成本，直接用类名来访问即可。<br>解释：不是说语法错，而是增加 jvm 成本，每增加一个对象变量，new 一个<br>对象需要分配内存空间，增加无谓的内存消耗。调用时会去堆中检索对象，用类<br>名访问只需要去方法区中找，减少了堆中检索的成本。</li>
+<li>【强制】所有的覆写方法，必须加@Override 注解。<br>说明：getObject()与 get0bject()的问题。一个是字母的 O，一个是数字的<br>0，加@Override 可以准确判断是否覆盖成功。另外，如果在抽象类中对方法<br>签名进行修改，其实现类会马上编译报错。<br>解释：jdk5.0 才有这个注解，可以帮助我们做数据检测，上例中的 O 和 0 眼<br>睛看不出来。</li>
+<li>【强制】相同参数类型，相同业务含义，才可以使用 Java 的可变参数，避免使<br>用 Object。<br>说明：可变参数必须放置在参数列表的最后。（提倡同学们尽量不用可变参数<br>编程）<br>正例：public List<User> listUsers(String type, Long… ids) {…}<br>解释：可变参数本质上就是一个数组（经编译器编译后转化为对应类型的数<br>组）。因为如果遇到此种业务，绝对会定下类型，而不是 Object，可变参数会<br>增加 jdk 编译成本，会将它作为一个数组转换，增加编译成本，运行时也会预<br>留内存空间，额外增加运行空间。</li>
+<li>【强制】外部正在调用或者二方库依赖的接口，不允许修改方法签名，避免对<br>接口调用方产生影响。接口过时必须加@Deprecated 注解，并清晰地说明采<br>用的新接口或者新服务是什么。<br>解释：因为现在微服务比较多，有 dubbo，rpc 调用，spring cloud rest<br>（特例，bean 参数不同）调用，如果方法签名改了，会对调用者造成麻烦。我们可<br>以用重写，重载的方式进行扩展。扩展接口升级 url 中加上版本号 v1,v2 等。但是原<br>来使用的接口不要停。</li>
+<li>【强制】不能使用过时的类或方法。<br>说明：java.net.URLDecoder 中的方法 decode(String encodeStr) 这个方法<br>已经过时，应该使用双参数 decode(String source, String encode)。接口提<br>供方既然明确是过时接口，那么有义务同时提供新的接口；作为调用方来说，<br>有义务去考证过时方法的新实现是什么。<br>解释：如果有可替代的，不要用过时的。肯定是有问题，才会声明过时。没人<br>喜欢过期的食物，为什么编程时就喜欢用过期的方法，而就不想着用新方法<br>呢？</li>
+<li>【强制】Object 的 equals 方法容易抛空指针异常，应使用常量或确定有值的<br>对象来调用 equals。<br>正例：”test”.equals(object);<br>反例：object.equals(“test”);<br>说明：推荐使用 java.util.Objects#equals（JDK7 引入的工具类）。<br>解释：字面值做调用方。避免空指针。看代码：oop 包下 EqualsTest</li>
+<li>【强制】所有整型包装类对象之间值的比较，全部使用 equals 方法比较。<br>说明：对于 Integer var = ? 在-128 至 127 范围内的赋值，Integer 对象是<br>在 IntegerCache.cache 产生，会复用已有对象，这个区间内的 Integer 值<br>可以直接使用==进行判断，但是这个区间之外的所有数据，都会在堆上产<br>生，并不会复用已有对象，这是一个大坑，推荐使用 equals 方法进行判<br>断。<br>解释：面试大坑，Integer intA = 3,intB =3 ,用==判断是不是 true？不是基<br>本类型，都用 equals。equal 比较内容。看代码 oop.EqualsTest</li>
+<li>【强制】浮点数之间的等值判断，基本数据类型不能用==来比较，包装数据类<br>型不能用 equals 来判断。<br>说明：浮点数采用“尾数+阶码”的编码方式，类似于科学计数法的“有效数<br>字+指数”的表示方式。二进制无法精确表示大部分的十进制小数，具体原理<br>参考《马士兵 Java 基础课程》。<br>反例：<br>float a = 1.0f - 0.9f;<br>float b = 0.9f - 0.8f;<br>if (a == b) {<br>// 预期进入此代码快，执行其它业务逻辑<br>// 但事实上 a==b 的结果为 false<br>}<br>Float x = Float.valueOf(a);<br>Float y = Float.valueOf(b);<br>if (x.equals(y)) {<br>// 预期进入此代码快，执行其它业务逻辑<br>// 但事实上 equals 的结果为 false<br>}<br>正例：<br>(1)指定一个误差范围，两个浮点数的差值在此范围之内，则认为是相等的。<br>float a = 1.0f - 0.9f;<br>float b = 0.9f - 0.8f;<br>float diff = 1e-6f;<br>if (Math.abs(a - b) &lt; diff) {<br>System.out.println(“true”);<br>}<br>(2)使用 BigDecimal 来定义值，再进行浮点数的运算操作。<br>BigDecimal a = new BigDecimal(“1.0”);<br>BigDecimal b = new BigDecimal(“0.9”);<br>BigDecimal c = new BigDecimal(“0.8”);<br>BigDecimal x = a.subtract(b);<br>BigDecimal y = b.subtract(c);<br>if (x.equals(y)) {<br>System.out.println(“true”);<br>}<br>解释：在 10 进制下，我们将 1 分成 10 份，还能表示 0.1，0.2 等，但表示<br>1/3，只能无限接近，永远达不到。所以精度不够。完全相等是不可能的。</li>
+<li>【强制】定义数据对象 DO 类时，属性类型要与数据库字段类型相匹配。<br>正例：数据库字段的 bigint 必须与类属性的 Long 类型相对应。<br>反例：某个案例的数据库表 id 字段定义类型 bigint unsigned，实际类对象属性<br>为 Integer，随着 id 越来越大，超过 Integer 的表示范围而溢出成为负数。<br>解释：门当户对，否则匹配不上出问题。天天吵架调 bug，太费精力。</li>
+<li>【强制】为了防止精度损失，禁止使用构造方法 BigDecimal(double)的方式把<br>double 值转化为 BigDecimal 对象。<br>说明：BigDecimal(double)存在精度损失风险，在精确计算或值比较的场景中可<br>能会导致业务逻辑异常。<br>如：BigDecimal g = new BigDecimal(0.1f); 实际的存储值为：0.10000000149<br>正例：优先推荐入参为 String 的构造方法，或使用 BigDecimal 的 valueOf 方<br>法，此方法内部其实执行了 Double 的 toString，而 Double 的 toString 按<br>double 的实际能表达的精度对尾数进行了截断。<br>BigDecimal recommend1 = new BigDecimal(“0.1”);<br>BigDecimal recommend2 = BigDecimal.valueOf(0.1);<br>解释：官方注释说了 unpredictable，你以为的你以为的不是你以为的。<br>BigDecimal(0.1)这货实际上等于</li>
+<li>1000000000000000055511151231257827021181583404541015625，因为准<br>确的来说 0.1 本身不能算是一个 double（其实 0.1 不能代表任何一个定长二进制分<br>数）。去 EqualsTests 看源码 注释</li>
+<li>关于基本数据类型与包装数据类型的使用标准如下：<br>1） 【强制】所有的 POJO 类属性必须使用包装数据类型。<br>2） 【强制】RPC 方法的返回值和参数必须使用包装数据类型。<br>3） 【推荐】所有的局部变量使用基本数据类型。<br>说明：POJO 类属性没有初值是提醒使用者在需要使用时，必须自己显式地进行赋<br>值，任何 NPE 问题，或者入库检查，都由使用者来保证。<br>正例：数据库的查询结果可能是 null，因为自动拆箱，用基本数据类型接收有<br>NPE 风险。<br>反例：比如显示成交总额涨跌情况，即正负 x%，x 为基本数据类型，调用的 RPC<br>服务，调用不成功时，返回的是默认值，页面显示为 0%，这是不合理的，应该<br>显示成中划线。所以包装数据类型的 null 值，能够表示额外的信息，如：远程调<br>用失败，异常退出。<br>解释：局部变量大多数用于计算，基本类型有优势，不需要拆箱装箱，效率高。<br>属性用包装类型：因为有可能序列化。看代码，当用 Integer 做参数时，num 为<br>空时，接受到的是 null，由使用者注意，但 为 int 时收到的是 0。如果使用者由<br>于没有 npe 忘了，上线会出问题。</li>
+<li>【强制】定义 DO/DTO/VO 等 POJO 类时，不要设定任何属性默认值。<br>反例：POJO 类的 createTime 默认值为 new Date()，但是这个属性在数据提取<br>时并没有置入具体值，在更新其它字段时又附带更新了此字段，导致创建时间被<br>修改成当前时间。<br>解释：<br>DO:data object 和数据库表对应，可以 1 个 do 对应多个表，。<br>Dto：trans 转换 dao 输出的对象，do 和 dto 不绝对一样。Dto 可以对数据做额<br>外的处理，do 整理后需要向上传递时用。<br>Vo：渲染视图。Vo 和 do 有时候也相同。<br>当 do 用于页面渲染用分页时，需要 vo，do 做一些特殊处理时，用 dto。<br>pojo：属性，set，get，object 方法，没有业务含义。<br>Pojo 是纯净的。<br>设置默认值，会让错误不好排查。</li>
+<li>【强制】序列化类新增属性时，请不要修改 serialVersionUID 字段，避免反序列<br>失败；如果完全不兼容升级，避免反序列化混乱，那么请修改 serialVersionUID<br>值。<br>说明：注意 serialVersionUID 不一致会抛出序列化运行时异常。<br>解释：用了版本号，如果改了版本号，有地方有序列化的对象，在反序列化时就会<br>报错。如果抛弃原来所有的，全部进行升级，无所谓了。Io 文件，内存，网络。<br>反序列化 会读取流中的 版本号，如果版本号和类中版本号不一致，会报错。也可<br>以让所以类版本号有的都是 1L，就像 2 个人同一个身份证号，正常活没问题。<br>Hashcode 方法，返回 0 也行，但是不建议。看代码：oop.SerializeTest</li>
+<li>【强制】构造方法里面禁止加入任何业务逻辑，如果有初始化逻辑，请放在 init<br>方法中。<br>解释：为了逻辑清晰，不要让孩子快出生的时候，干些他成为独立的人之后才能<br>干的活。先让他生出来再说，别着急。可以在 init 上加上，@PostConstruct 注解，<br>在构造方法执行结束后调用。在服务发现 DiscoveryClient 中构造方法执行了业务逻<br>辑，我们不学。国产标准。</li>
+<li>【强制】POJO 类必须写 toString 方法。使用 IDE 中的工具：source&gt;<br>generate toString 时，如果继承了另一个 POJO 类，注意在前面加一下<br>super.toString。<br>说明：在方法执行抛出异常时，可以直接调用 POJO 的 toString()方法打印其属性<br>值，便于排查问题。<br>解释：异常处理会用到。</li>
+<li>【强制】禁止在 POJO 类中，同时存在对应属性 xxx 的 isXxx()和 getXxx()方<br>法。<br>说明：框架在调用属性 xxx 的提取方法时，并不能确定哪个方法一定是被优先调<br>用到。</li>
+<li>【推荐】使用索引访问用 String 的 split 方法得到的数组时，需做最后一个分隔<br>符后有无内容的检查，否则会有抛 IndexOutOfBoundsException 的风险。<br>说明：<br>String str = “a,b,c,,”;<br>String[] ary = str.split(“,”);<br>// 预期大于 3，结果是 3<br>System.out.println(ary.length);<br>解释：看代码：oop.SpiltTest</li>
+<li>【推荐】当一个类有多个构造方法，或者多个同名方法，这些方法应该按顺序放<br>置在一起，便于阅读，此条规则优先于下一条。<br>解释：构造方法，overload，属性，getter/setter 分别放在一起。</li>
+<li>【推荐】 类内方法定义的顺序依次是：公有方法或保护方法 &gt; 私有方法 &gt;<br>getter / setter 方法。<br>说明：公有方法是类的调用者和维护者最关心的方法，首屏展示最好；保护方法虽<br>然只是子类关心，也可能是“模板设计模式”下的核心方法；而私有方法外部一般<br>不需要特别关心，是一个黑盒实现；因为承载的信息价值较低，所有 Service 和<br>DAO 的 getter/setter 方法放在类体最后。<br>解释：方便看代码的人。</li>
+<li>【推荐】setter 方法中，参数名称与类成员变量名称一致，this.成员名 = 参数名。在 getter/setter 方法中，不要增加业务逻辑，增加排查问题的难<br>度。<br>反例：<br>public Integer getData() {<br>if (condition) {<br>return this.data + 100;<br>} else {<br>return this.data - 100;<br>}<br>}<br>解释：加了业务逻辑，别人会误解。</li>
+<li>【推荐】循环体内，字符串的连接方式，使用 StringBuilder 的 append 方法进<br>行扩展。<br>说明：下例中，反编译出的字节码文件显示每次循环都会 new 出一个<br>StringBuilder 对象，然后进行 append 操作，最后通过 toString 方法返回<br>String 对象，造成内存资源浪费。<br>反例：<br>String str = “start”;<br>for (int i = 0; i &lt; 100; i++) {<br>str = str + “hello”;<br>}<br>解释：减少对象的构建过程，builder 用的时 char[]实现。减少堆中不必要对<br>象的创建过程。</li>
+<li>【推荐】final 可以声明类、成员变量、方法、以及本地变量，下列情况使用 final<br>关键字：<br>1） 不允许被继承的类，如：String 类。<br>2） 不允许修改引用的域对象。<br>3） 不允许被覆写的方法，如：POJO 类的 setter 方法。<br>4） 不允许运行过程中重新赋值的局部变量。<br>5） 避免上下文重复使用一个变量，使用 final 可以强制重新定义一个变量，方便<br>更好地进行重构。</li>
+<li>【推荐】慎用 Object 的 clone 方法来拷贝对象。<br>说明：对象 clone 方法默认是浅拷贝，若想实现深拷贝需覆写 clone 方法实现域<br>对象的深度遍历式拷贝。<br>解释：clone 是浅拷贝。就当没有 clone 这个方法。Oop.CloneTest<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/meism5/article/details/90414050">https://blog.csdn.net/meism5/article/details/90414050</a></li>
+<li>【推荐】类成员与方法访问控制从严：<br>1） 如果不允许外部直接通过 new 来创建对象，那么构造方法必须是 private。<br>2） 工具类不允许有 public 或 default 构造方法。<br>3） 类非 static 成员变量并且与子类共享，必须是 protected。<br>4） 类非 static 成员变量并且仅在本类使用，必须是 private。<br>5） 类 static 成员变量如果仅在本类使用，必须是 private。<br>6） 若是 static 成员变量，考虑是否为 final。<br>7） 类成员方法只供类内部调用，必须是 private。<br>8） 类成员方法只对继承类公开，那么限制为 protected。<br>说明：任何类、方法、参数、变量，严控访问范围。过于宽泛的访问范围，不利于<br>模块解耦。思考：如果是一个 private 的方法，想删除就删除，可是一个 public<br>的 service 成员方法或成员变量，删除一下，不得手心冒点汗吗？变量像自己的小<br>孩，尽量在自己的视线内，变量作用域太大，无限制的到处跑，那么你会担心的。<br>解释：最小知道原则。阿里安全条例，关于信息传递也</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/tomasonl?tab=repositories">秋实先生</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomasonl.github.io">https://tomasonl.github.io</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归属Tomasonl秋实先生所有，如有转载请注明出处</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a></div><div class="post_share"><div class="social-share" data-image="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&amp;fm=26&amp;gp=0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WechatPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WechatPay.jpg"/></a><div class="post-qr-code-desc"></div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/Alipay.jpg"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/03/09/Java%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83%E8%B5%B7%E6%9D%A52/"><img class="next-cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&amp;fm=26&amp;gp=0.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Java开发-规范起来2</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/04/06/Java多线程/" title="JAVA多线程"><img class="cover" src="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-06</div><div class="title">JAVA多线程</div></div></a></div><div><a href="/2021/03/04/Java开发-规范起来1/" title="Java日常开发-规范起来1"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-04</div><div class="title">Java日常开发-规范起来1</div></div></a></div><div><a href="/2021/03/09/Java开发-规范起来2/" title="Java开发-规范起来2"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-09</div><div class="title">Java开发-规范起来2</div></div></a></div><div><a href="/2020/02/01/Maven和Gradle项目构建/" title="Maven和Grade构建项目"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-01</div><div class="title">Maven和Grade构建项目</div></div></a></div><div><a href="/2020/12/23/MyBatis源码剖析/" title="MyBatis源码剖析"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1090660196,3930716840&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-23</div><div class="title">MyBatis源码剖析</div></div></a></div><div><a href="/2021/01/02/PaaS2/" title="华为云PaaS平台-服务引擎CSE开发-（2）"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=172869225,1865299545&fm=15&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-02</div><div class="title">华为云PaaS平台-服务引擎CSE开发-（2）</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Tomasonlee</div><div class="author-info__description">厚积薄发，行胜于言</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">28</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">5</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tomasonl"><i class="fab fa-github"></i><span>关注一波 O(∩_∩)O</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/tomasonl" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://tomasonl.cloudstudio.net/dashboard/workspace" target="_blank" title="CloudStudio"><i class="fas fa-cloud"></i></a><a class="social-icon" href="https://gitee.com/tomasonl" target="_blank" title="Gitee"><i class="fab fa-git-square"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B-OOP-%E8%A7%84%E7%BA%A6"><span class="toc-number">1.</span> <span class="toc-text">(四) OOP 规约</span></a></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Tomasonlee</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厚积薄发，行胜于言！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
