@@ -39,28 +39,6 @@
   </entry>
   
   <entry>
-    <title>前端进阶学习记录</title>
-    <link href="http://tomasonl.github.io/2021/03/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    <id>http://tomasonl.github.io/2021/03/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
-    <published>2021-03-15T08:29:32.000Z</published>
-    <updated>2021-03-09T06:25:24.593Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="1、前端开发和前端开发工具"><a href="#1、前端开发和前端开发工具" class="headerlink" title="1、前端开发和前端开发工具"></a>1、前端开发和前端开发工具</h1><h1 id="2、Nodejs安装及快速入门"><a href="#2、Nodejs安装及快速入门" class="headerlink" title="2、Nodejs安装及快速入门"></a>2、Nodejs安装及快速入门</h1><h1 id="3、Es6的新语法糖"><a href="#3、Es6的新语法糖" class="headerlink" title="3、Es6的新语法糖"></a>3、Es6的新语法糖</h1><h1 id="4、Npm包管理器"><a href="#4、Npm包管理器" class="headerlink" title="4、Npm包管理器"></a>4、Npm包管理器</h1><h1 id="5、Babel的安装作用"><a href="#5、Babel的安装作用" class="headerlink" title="5、Babel的安装作用"></a>5、Babel的安装作用</h1><h1 id="6、模块化管理"><a href="#6、模块化管理" class="headerlink" title="6、模块化管理"></a>6、模块化管理</h1><h1 id="7、Webpack打包和编译"><a href="#7、Webpack打包和编译" class="headerlink" title="7、Webpack打包和编译"></a>7、Webpack打包和编译</h1><h1 id="8、如何快速构建一个nodejs项目vue-element-admin"><a href="#8、如何快速构建一个nodejs项目vue-element-admin" class="headerlink" title="8、如何快速构建一个nodejs项目vue-element-admin"></a>8、如何快速构建一个nodejs项目vue-element-admin</h1><h1 id="01、概述和前端工具vscode安装"><a href="#01、概述和前端工具vscode安装" class="headerlink" title="01、概述和前端工具vscode安装"></a>01、概述和前端工具vscode安装</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 [1] 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，==早期网站主要内容都是静态，以图片和文字为主==，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。 [2]</p><p>移动互联网带来了大量高性能的移动终端设备以及快速的无线网络，HTML5，node.jS的广泛应用，各类框架类库层出不穷。 [1]</p><p>当下国内的大部分互联网公司只有前端工程师和后端工程师，中间层的工作有的由前端来完成，有的由后端来完成。</p><p>1.1、下载安装VScode<br>下载地址：<a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p><p>1：双击打开vscode安装包</p><p>2: 指定安装目录</p><p>不创建桌面图标，（个人喜好）</p><p>直接点击【下一步】</p><p>点击【安装】</p><p>安装完毕</p><p>点击完成</p><p>1.1.1、中文界面配置</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Java开发-规范起来3</title>
     <link href="http://tomasonl.github.io/2021/03/14/Java%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83%E8%B5%B7%E6%9D%A53/"/>
     <id>http://tomasonl.github.io/2021/03/14/Java%E5%BC%80%E5%8F%91-%E8%A7%84%E8%8C%83%E8%B5%B7%E6%9D%A53/</id>
@@ -255,6 +233,28 @@
     
     
     <category term="生活随笔" scheme="http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>前端进阶学习记录</title>
+    <link href="http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    <id>http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
+    <published>2021-01-15T08:29:32.000Z</published>
+    <updated>2021-03-10T05:50:11.746Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、前端开发和前端开发工具</span><br><span class="line">2、Nodejs安装及快速入门</span><br><span class="line">3、Es6的新语法糖</span><br><span class="line">4、Npm包管理器</span><br><span class="line">5、Babel的安装作用</span><br><span class="line">6、模块化管理</span><br><span class="line">7、Webpack打包和编译</span><br><span class="line">8、如何快速构建一个nodejs项目vue-element-admin</span><br></pre></td></tr></table></figure><h1 id="01、概述和前端工具vscode安装"><a href="#01、概述和前端工具vscode安装" class="headerlink" title="01、概述和前端工具vscode安装"></a>01、概述和前端工具vscode安装</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 [1] 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，==早期网站主要内容都是静态，以图片和文字为主==，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。 [2]</p><p>移动互联网带来了大量高性能的移动终端设备以及快速的无线网络，HTML5，node.jS的广泛应用，各类框架类库层出不穷。 [1]</p><p>当下国内的大部分互联网公司只有前端工程师和后端工程师，中间层的工作有的由前端来完成，有的由后端来完成。</p><p>1.1、下载安装VScode<br>下载地址：<a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p><p>1：双击打开vscode安装包</p><p>2: 指定安装目录</p><p>不创建桌面图标，（个人喜好）</p><p>直接点击【下一步】</p><p>点击【安装】</p><p>安装完毕</p><p>点击完成</p><p>1.1.1、中文界面配置</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
