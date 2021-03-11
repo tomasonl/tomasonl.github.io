@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-03-10T05:56:46.783Z</updated>
+  <updated>2021-03-11T07:21:08.666Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://tomasonl.github.io/2021/03/18/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95%E6%8C%87%E5%AF%BC/"/>
     <id>http://tomasonl.github.io/2021/03/18/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95%E6%8C%87%E5%AF%BC/</id>
     <published>2021-03-18T08:29:32.000Z</published>
-    <updated>2021-03-10T05:56:46.783Z</updated>
+    <updated>2021-03-11T07:21:08.666Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="1，计算机系统知识"><a href="#1，计算机系统知识" class="headerlink" title="1，计算机系统知识"></a>1，计算机系统知识</h1><ul><li>进制转换</li><li>数值表示</li><li>算数运算、逻辑运算</li><li>数学基础知识</li><li>计算机硬件</li><li>存储系统</li><li>可靠性与性能测评</li></ul><p>1.1 数据表示与校验码<br>数据在计算机表现为01表示的<em>机器数</em>,有无符号根据最高位确定。可采用原、反、补、移码四种编码方法表示带符号的机器数；<br>0正1负<br>原码：乘除简单，加减不便；0分 +0[00000000] -0[10000000];<br>反码：符号为1 则要把剩余的取反；0分 +0[00000000] -0[11111111];<br>补码：符号为1，其余取反且最低位+1；0[00000000];<br>移码：乘除简单，加减不便；0分 +0[00000000] -0[10000000];</p>]]></content>
     
     
       
@@ -241,9 +241,9 @@
     <link href="http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
     <id>http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
     <published>2021-01-15T08:29:32.000Z</published>
-    <updated>2021-03-10T05:50:11.746Z</updated>
+    <updated>2021-03-11T07:21:32.380Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、前端开发和前端开发工具</span><br><span class="line">2、Nodejs安装及快速入门</span><br><span class="line">3、Es6的新语法糖</span><br><span class="line">4、Npm包管理器</span><br><span class="line">5、Babel的安装作用</span><br><span class="line">6、模块化管理</span><br><span class="line">7、Webpack打包和编译</span><br><span class="line">8、如何快速构建一个nodejs项目vue-element-admin</span><br></pre></td></tr></table></figure><h1 id="01、概述和前端工具vscode安装"><a href="#01、概述和前端工具vscode安装" class="headerlink" title="01、概述和前端工具vscode安装"></a>01、概述和前端工具vscode安装</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 [1] 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，==早期网站主要内容都是静态，以图片和文字为主==，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。 [2]</p><p>移动互联网带来了大量高性能的移动终端设备以及快速的无线网络，HTML5，node.jS的广泛应用，各类框架类库层出不穷。 [1]</p><p>当下国内的大部分互联网公司只有前端工程师和后端工程师，中间层的工作有的由前端来完成，有的由后端来完成。</p><p>1.1、下载安装VScode<br>下载地址：<a href="https://code.visualstudio.com/">https://code.visualstudio.com/</a></p><p>1：双击打开vscode安装包</p><p>2: 指定安装目录</p><p>不创建桌面图标，（个人喜好）</p><p>直接点击【下一步】</p><p>点击【安装】</p><p>安装完毕</p><p>点击完成</p><p>1.1.1、中文界面配置</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、前端开发和前端开发工具</span><br><span class="line">2、Nodejs安装及快速入门</span><br><span class="line">3、Es6的新语法糖</span><br><span class="line">4、Npm包管理器</span><br><span class="line">5、Babel的安装作用</span><br><span class="line">6、模块化管理</span><br><span class="line">7、Webpack打包和编译</span><br><span class="line">8、如何快速构建一个nodejs项目vue-element-admin</span><br></pre></td></tr></table></figure><h1 id="01、概述和前端工具vscode安装"><a href="#01、概述和前端工具vscode安装" class="headerlink" title="01、概述和前端工具vscode安装"></a>01、概述和前端工具vscode安装</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 [1] 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，==早期网站主要内容都是静态，以图片和文字为主==，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。 [2]</p><p>移动互联网带来了大量高性能的移动终端设备以及快速的无线网络，HTML5，node.jS的广泛应用，各类框架类库层出不穷。 [1]</p><p>当下国内的大部分互联网公司只有前端工程师和后端工程师，中间层的工作有的由前端来完成，有的由后端来完成。</p>]]></content>
     
     
       
