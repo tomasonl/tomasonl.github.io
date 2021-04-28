@@ -2,14 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://tomasonl.github.io/movie/index.html</loc>
+    <loc>http://tomasonl.github.io/photo/index.html</loc>
     
     <lastmod>2021-04-28</lastmod>
     
   </url>
   
   <url>
-    <loc>http://tomasonl.github.io/photo/index.html</loc>
+    <loc>http://tomasonl.github.io/movie/index.html</loc>
     
     <lastmod>2021-04-28</lastmod>
     
@@ -298,14 +298,14 @@
   </url>
   
   <url>
-    <loc>http://tomasonl.github.io/tags/%E7%AE%80%E5%8E%86%E4%B8%AD%E5%BF%83/</loc>
+    <loc>http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
     <lastmod>2021-04-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/</loc>
+    <loc>http://tomasonl.github.io/tags/%E7%AE%80%E5%8E%86%E4%B8%AD%E5%BF%83/</loc>
     <lastmod>2021-04-28</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
