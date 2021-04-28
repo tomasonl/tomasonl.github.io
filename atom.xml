@@ -39,6 +39,28 @@
   </entry>
   
   <entry>
+    <title>Nginx-进阶梳理</title>
+    <link href="http://tomasonl.github.io/2021/04/13/Nginx%E8%BF%9B%E9%98%B6/"/>
+    <id>http://tomasonl.github.io/2021/04/13/Nginx%E8%BF%9B%E9%98%B6/</id>
+    <published>2021-04-13T02:09:06.000Z</published>
+    <updated>2021-04-28T07:09:53.786Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="Nginx-程序架构"><a href="#Nginx-程序架构" class="headerlink" title="Nginx 程序架构"></a>Nginx 程序架构</h2><h3 id="master-worker"><a href="#master-worker" class="headerlink" title="master/worker"></a>master/worker</h3><p>一个master进程：负载加载和分析配置文件、管理worker进程、平滑升级<br>一个或多个worker进程：处理并响应用户请求<br>缓存相关的进程：</p><p>cache loader    # 载入缓存对象<br>cache manager   # 管理缓存对象</p><h2 id="Nginx特性"><a href="#Nginx特性" class="headerlink" title="Nginx特性"></a>Nginx特性</h2><p>异步、事件驱动和非阻塞。</p><p>并发请求处理     # 通过epoll/select<br>文件IO          # 高级IO sendfile，异步，mmap</p><h2 id="Nginx-模块"><a href="#Nginx-模块" class="headerlink" title="Nginx 模块"></a>Nginx 模块</h2><p>高度模块化，但其模块早期不支持DSO机制；近期版本支持动态装载和卸载。</p><p>模块分类：</p><p>1、核心模块：core module<br>2、标准模块：<br>    HTTP modules：Http模块<br>        - Standard HTTP modules<br>        - Optional HTTP modules<br>    Mail modules：邮件相关<br>    Stream modules：传输层代理</p><h2 id="Nginx-作用"><a href="#Nginx-作用" class="headerlink" title="Nginx 作用"></a>Nginx 作用</h2><p>静态的web资源服务器；(图片服务器，或js/css/html/txt等静态资源服务器)<br>结合FastCGI/uwSGI/SCGI等协议反代动态资源请求<br>http/https协议的反向代理<br>imap4/pop3协议的反向代理<br>tcp/udp协议的请求转发</p><p>三台Tomcat搭建一个集群 Nginx代理</p><p>Nginx要是坏了呢？===KeepAlive<br>HA 高可用High Availability<br>两台Nginx不能同时去服务，主备节点关系。和tomcat集群不同；</p><p>使用KeepAlive实现高可用机制<br>基于VRRP协议，检测nginx状态，如果有故障还可以发送通知；主机修复好，自动让位；<br>这一些列都是由KeepAlive来做；<br>VRRP协议，虚拟路由冗余协议，解决内网单点故障；<br>keepalive==   </p><ol><li>./configure –prefix=/usr/local/keepalived –sysconf=/etc    (缺库就补一下)</li><li>make &amp;&amp; make install</li><li>whereis keepalived<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">global_defs&#123;  </span><br><span class="line">notification_email&#123;   </span><br><span class="line">#通知email，根据实际情况配置    </span><br><span class="line">admin@example.com</span><br><span class="line">&#125;</span><br><span class="line">notification_email_from admin@example.com</span><br><span class="line">smtp_server 127.0.0.1</span><br><span class="line">stmp_connect_timeout 30</span><br><span class="line">router_id node1         </span><br><span class="line">#节点名标识，主要用于通知中</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_NODE &#123;</span><br><span class="line">state MASTER          </span><br><span class="line">#配置为主服务器</span><br><span class="line"></span><br><span class="line">interface eth0        </span><br><span class="line">#通讯网卡</span><br><span class="line">virtual_router_id 100 </span><br><span class="line">#路由标识</span><br><span class="line">priority 200          </span><br><span class="line">#优先级，0-254</span><br><span class="line">advert_int 5          </span><br><span class="line">#通知间隔，实际部署时可以设置小一点，减少延时</span><br><span class="line">authentication &#123;</span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 123456    </span><br><span class="line">#验证密码，用于通讯主机间验证</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"> virtual_ipaddress &#123;</span><br><span class="line">192.168.1.206      </span><br><span class="line">#虚拟ip，可以定义多个</span><br><span class="line">&#125;</span><br><span class="line">        </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li></ol><p>写脚本实现全天候 检测nginx是否活着</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">#!&#x2F;bin&#x2F;bash</span><br><span class="line">A&#x3D; &#96;ps -C nginx --no-header |wc -l&#96;</span><br><span class="line">#判断 nginx是否宕机,如果宕机了,尝试重启</span><br><span class="line">if [$A -eq 0 ]; then</span><br><span class="line">&#x2F;usr&#x2F;locaL&#x2F;nginx&#x2F;sbin&#x2F;nginx</span><br><span class="line">#等待一小会再次检查 nginx,如果没有启动成功,则停止 keepalived,使其启动备用机</span><br><span class="line">sleep 3</span><br><span class="line">if [&#96;ps -C nginx --no-header |wc -l&#96; -eq 0 ]; then</span><br><span class="line">killall keepalived</span><br><span class="line">fi</span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>但是备用机一般没啥事 也不能天天出事，所以为了资源合理利用</p><h3 id="配置Keepalived双主热备"><a href="#配置Keepalived双主热备" class="headerlink" title="配置Keepalived双主热备"></a>配置Keepalived双主热备</h3><p>规则：以一个虚拟ip分组归为同一个路由<br>主节点配置：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">router_id keep_171</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">state MASTER</span><br><span class="line">interface ens33</span><br><span class="line">virtual_router_id 51</span><br><span class="line">priority 100</span><br><span class="line">advert_int 1</span><br><span class="line">authentication &#123;</span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 1111</span><br><span class="line">&#125;</span><br><span class="line">virtual_ipaddress &#123;</span><br><span class="line">192.168.1.161</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_2 &#123;</span><br><span class="line">state BACKUP</span><br><span class="line">interface ens33</span><br><span class="line">virtual_router_id 52</span><br><span class="line">priority 80</span><br><span class="line">advert_int 1</span><br><span class="line">authentication &#123;</span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 1111</span><br><span class="line">&#125;</span><br><span class="line">virtual_ipaddress &#123;</span><br><span class="line">192.168.1.162</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>备用节点配置</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">router_id keep_172</span><br><span class="line">&#125;</span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">state BACKUP</span><br><span class="line">interface ens33</span><br><span class="line">virtual_router_id 51</span><br><span class="line">priority 80</span><br><span class="line">advert_int 1</span><br><span class="line">authentication &#123;</span><br><span class="line">auth_type PASS</span><br><span class="line">auth_pass 1111</span><br><span class="line">&#125;</span><br><span class="line">virtual_ipaddress &#123;</span><br><span class="line">192.168.1.161</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>相对而言，互为主备；</p><p>LVS-章文嵩博士</p><p>LVS负载能力超级高，LVS可以只接受不响应，</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+  </entry>
+  
+  <entry>
     <title>软件设计师考试指导</title>
     <link href="http://tomasonl.github.io/2021/03/18/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95%E6%8C%87%E5%AF%BC/"/>
     <id>http://tomasonl.github.io/2021/03/18/%E8%BD%AF%E4%BB%B6%E8%AE%BE%E8%AE%A1%E5%B8%88%E8%80%83%E8%AF%95%E6%8C%87%E5%AF%BC/</id>
@@ -429,28 +451,6 @@
     
     
     <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>为什么？游戏可以打一天学习只能三分钟</title>
-    <link href="http://tomasonl.github.io/2020/12/11/%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F-%E4%B8%8D%E8%83%BD%E6%8B%BF%E5%87%BA%E6%89%93%E6%B8%B8%E6%88%8F%E7%9A%84%E7%B2%BE%E6%B0%94%E7%A5%9E%E5%8E%BB%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://tomasonl.github.io/2020/12/11/%E4%B8%BA%E4%BB%80%E4%B9%88%EF%BC%9F-%E4%B8%8D%E8%83%BD%E6%8B%BF%E5%87%BA%E6%89%93%E6%B8%B8%E6%88%8F%E7%9A%84%E7%B2%BE%E6%B0%94%E7%A5%9E%E5%8E%BB%E5%AD%A6%E4%B9%A0/</id>
-    <published>2020-12-11T09:50:35.000Z</published>
-    <updated>2020-12-15T03:25:26.745Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><strong>这个周末给你自由选择，你会：</strong><br>A. 学习自己工作相关技术<br>B. 出去游山玩水，锻炼身体<br>C. 宅在家里看一天的剧/打一天的游戏</p><p>大部分朋友的结果应该是这😂( •̀ ω •́ )✧<br><img src="https://pic1.zhimg.com/9d54466c0161fb7c25a4387941a7e56c_r.jpg"><br>但是，这几件事，对于我们更有意义的是哪一件？虽然不能否定欢愉的过程，但是大多数人还是会有一种懊悔，感觉虚度了光阴。</p><h2 id="为什么我们明明知道一件事（学习）是有益的，却不愿意去做；而一件无益的事情（玩手机）却可以做个不停"><a href="#为什么我们明明知道一件事（学习）是有益的，却不愿意去做；而一件无益的事情（玩手机）却可以做个不停" class="headerlink" title="为什么我们明明知道一件事（学习）是有益的，却不愿意去做；而一件无益的事情（玩手机）却可以做个不停?"></a>为什么我们明明知道一件事（学习）是有益的，却不愿意去做；而一件无益的事情（玩手机）却可以做个不停?</h2><p><strong>奖励越丰富</strong>，<strong>对行为的强化作用越强</strong>。这很容易解释，“假如我好好学习，就能得到一百万”和“假如我好好学习，就能得到一分钱”二者强化作用肯定不同。<br><strong>奖励越及时</strong>，<strong>强化作用越强</strong>。<br>因为我们在玩手机的过程中，一直在获得快乐的反馈，于是玩手机这一行为不断得到强化；相反，我们在学习时，知识的奖励作用并不能立即的体现，所以学习这一行为也就得不到强化，自然难以一直学习下去了。</p><h2 id="嗑瓜子"><a href="#嗑瓜子" class="headerlink" title="嗑瓜子"></a>嗑瓜子</h2><ol><li>因为简单，人们很容易开始这种行为；因为简单，人们很容易掌握技巧，成为熟手；并且不断改进嗑瓜子的方法，这个过程增强了人们的自信，在潜意识中人们期望享受这个过程。</li><li>一盘瓜子一个一个嗑起来，过一会就有一堆瓜子皮——能够看到嗑瓜子的成就<br>作为管理者，如果谁有办法能够让他的下属像吃瓜子一样愉快地完成工作，那么他就成功了。通过上述分析，我们已经发现，要做到这一点并不困难。</li><li>每嗑开一颗瓜子人们马上就会享受到一粒瓜子仁。<br>这一点至关重要。嗑开瓜子后马上享受到香香的瓜子仁，这对嗑瓜子的人来说是一个即时回报；就是这种即时回报微妙地发挥着作用——激励着人们不停地去嗑下一颗瓜子。</li></ol><h2 id="管理者如何运用"><a href="#管理者如何运用" class="headerlink" title="管理者如何运用"></a>管理者如何运用</h2><p>作为管理者，如果谁有办法能够让他的下属像吃瓜子一样愉快地完成工作，那么他就成功了。通过上述分析，我们已经发现，要做到这一点并不困难。</p><ul><li>首先，我们要学会分解任务，把复杂任务分解为若干个简单的、容易做的小任务。就像嗑瓜子一样容易做，再把这些容易完成的小任务分到员工手中。员工一定会乐于接受这样的任务</li><li>第二、我们要及时促使下属开始工作。例如，给他明确工作目标，提供工作条件，规定开始的时间。在下属对任务充满热情的时候就让他开始工作。</li><li>第三、对于员工每一次完成任务都要给予及时的激励。这种激励应该是及时的。就是说，员工完成任务以后，第一要激励，第二要马上激励。</li><li>第四、向你的下属展示他的工作成就。并且让他知道，你很开心看到他的成就</li></ul><p>比如说，你的助理刚刚帮你润色完一个讲稿，把讲稿交给你。你看后觉得很满意，那你就马上告诉她“真棒！又快又好。”你绝对不可以没有任何表示，说“好，我看了。”又例如，如果你的某个下属本月完成任务很好，你就应该按照制度当月兑现奖金，不要拖到下个月。更不能闭口不谈兑现奖金的事。如果员工出色的工作表现不能得到上司的及时肯定或者奖励，员工的工作热情就会减弱。如果，您的助理花了半天的时间给你整理好了你要的资料，你不但没有称赞他，反而因为他的一些小的失误批评一通。那他会自觉地、愉快地完成其他可做可不做的任务吗？就好比在吃瓜子时，如果你吃了一个臭瓜子以后，你对吃下一个瓜子就会心有余悸。如果连续吃到两个臭瓜子，你可能就会不再吃了。作为上司，你给下属的任务就是嗑开瓜子，你对下属的态度就是瓜子仁。如果你让你的下属连续两次吃了臭瓜子，你的下属恐怕再也不会愿意嗑你的瓜子了。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="生活随笔" scheme="http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
