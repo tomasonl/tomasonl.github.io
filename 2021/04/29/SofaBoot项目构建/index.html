@@ -1,0 +1,214 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SofaBoot项目构建 | 李响的技术博客</title><meta name="keywords" content="工作记录"><meta name="author" content="Tomasonlee"><meta name="copyright" content="Tomasonlee"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><meta name="description" content="SOFA微服务应用开发快速入门 1. 搭建开发环境    JDK版本 ≥ 8    Apache Maven 版本 ≥ 3.2.5    指定maven的配置文件为平台提供的setting.xml文件    配置java以及maven的相关环境变量 2. 基于SOFABoot脚手架创建工程使用maven命令，通过内网maven私服创建SOFABoot工程（请勿直接复制 Maven 命令，请">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SofaBoot项目构建">
+<meta property="og:url" content="http://tomasonl.github.io/2021/04/29/SofaBoot%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/index.html">
+<meta property="og:site_name" content="李响的技术博客">
+<meta property="og:description" content="SOFA微服务应用开发快速入门 1. 搭建开发环境    JDK版本 ≥ 8    Apache Maven 版本 ≥ 3.2.5    指定maven的配置文件为平台提供的setting.xml文件    配置java以及maven的相关环境变量 2. 基于SOFABoot脚手架创建工程使用maven命令，通过内网maven私服创建SOFABoot工程（请勿直接复制 Maven 命令，请">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2964919715,1588537225&fm=15&gp=0.jpg">
+<meta property="article:published_time" content="2021-04-29T08:13:34.000Z">
+<meta property="article:modified_time" content="2021-04-29T08:26:24.720Z">
+<meta property="article:author" content="Tomasonlee">
+<meta property="article:tag" content="工作记录">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2964919715,1588537225&fm=15&gp=0.jpg"><link rel="shortcut icon" href="/img/1.jpg"><link rel="canonical" href="http://tomasonl.github.io/2021/04/29/SofaBoot%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css"><script>var GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  ClickShowText: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  justifiedGallery: {
+    js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+    css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+};
+
+var saveToLocal = {
+  set: function setWithExpiry(key, value, ttl) {
+    const now = new Date()
+    const expiryDay = ttl * 86400000
+    const item = {
+      value: value,
+      expiry: now.getTime() + expiryDay,
+    }
+    localStorage.setItem(key, JSON.stringify(item))
+  },
+
+  get: function getWithExpiry(key) {
+    const itemStr = localStorage.getItem(key)
+
+    if (!itemStr) {
+      return undefined
+    }
+    const item = JSON.parse(itemStr)
+    const now = new Date()
+
+    if (now.getTime() > item.expiry) {
+      localStorage.removeItem(key)
+      return undefined
+    }
+    return item.value
+  }
+}</script><script id="config_change">var GLOBAL_CONFIG_SITE = { 
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-04-29 16:26:24'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(function () {  window.activateDarkMode = function () {
+    document.documentElement.setAttribute('data-theme', 'dark')
+    if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+    }
+  }
+  window.activateLightMode = function () {
+    document.documentElement.setAttribute('data-theme', 'light')
+   if (document.querySelector('meta[name="theme-color"]') !== null) {
+      document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+    }
+  }
+  const autoChangeMode = 'false'
+  const t = saveToLocal.get('theme')
+  if (autoChangeMode === '1') {
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+    const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+    const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+    if (t === undefined) {
+      if (isLightMode) activateLightMode()
+      else if (isDarkMode) activateDarkMode()
+      else if (isNotSpecified || hasNoSupport) {
+        const now = new Date()
+        const hour = now.getHours()
+        const isNight = hour <= 6 || hour >= 18
+        isNight ? activateDarkMode() : activateLightMode()
+      }
+      window.matchMedia('(prefers-color-scheme: dark)').addListener(function (e) {
+        if (saveToLocal.get('theme') === undefined) {
+          e.matches ? activateDarkMode() : activateLightMode()
+        }
+      })
+    } else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else if (autoChangeMode === '2') {
+    const now = new Date()
+    const hour = now.getHours()
+    const isNight = hour <= 6 || hour >= 18
+    if (t === undefined) isNight ? activateDarkMode() : activateLightMode()
+    else if (t === 'light') activateLightMode()
+    else activateDarkMode()
+  } else {
+    if (t === 'dark') activateDarkMode()
+    else if (t === 'light') activateLightMode()
+  }const asideStatus = saveToLocal.get('aside-status')
+if (asideStatus !== undefined) {
+   if (asideStatus === 'hide') {
+     document.documentElement.classList.add('hide-aside')
+   } else {
+     document.documentElement.classList.remove('hide-aside')
+   }
+}})()</script><meta name="generator" content="Hexo 5.2.0"><link rel="alternate" href="/atom.xml" title="李响的技术博客" type="application/atom+xml">
+</head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="author-avatar"><img class="avatar-img" src="/img/2.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光印记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签浏览</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 游乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 指南中心</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div></div></div><div id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url(https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2964919715,1588537225&amp;fm=15&amp;gp=0.jpg)"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">李响的技术博客</a></span><span id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时光印记</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签浏览</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fa fa-heartbeat"></i><span> 游乐中心</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page" href="/photo/"><i class="fa-fw fas fa-images"></i><span> 时光照相馆</span></a></li><li><a class="site-page" href="/movie/"><i class="fa-fw fas fa-video"></i><span> 影音娱乐室</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 指南中心</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于作者</span></a></div></div><span class="close" id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></span></span></nav><div id="post-info"><h1 class="post-title">SofaBoot项目构建</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-04-29T08:13:34.000Z" title="发表于 2021-04-29 16:13:34">2021-04-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-04-29T08:26:24.720Z" title="更新于 2021-04-29 16:26:24">2021-04-29</time></span></div><div class="meta-secondline"> <span class="post-meta-separator">|</span><span class="post-meta-pv-cv"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="SOFA微服务应用开发"><a href="#SOFA微服务应用开发" class="headerlink" title="SOFA微服务应用开发"></a>SOFA微服务应用开发</h1><p>快速入门</p>
+<h2 id="1-搭建开发环境"><a href="#1-搭建开发环境" class="headerlink" title="1. 搭建开发环境"></a>1. 搭建开发环境</h2><p>    JDK版本 ≥ 8<br>    Apache Maven 版本 ≥ 3.2.5<br>    指定maven的配置文件为平台提供的setting.xml文件<br>    配置java以及maven的相关环境变量</p>
+<h2 id="2-基于SOFABoot脚手架创建工程"><a href="#2-基于SOFABoot脚手架创建工程" class="headerlink" title="2. 基于SOFABoot脚手架创建工程"></a>2. 基于SOFABoot脚手架创建工程</h2><p>使用maven命令，通过内网maven私服创建SOFABoot工程（请勿直接复制 Maven 命令，请把“custom_settings_path”替换为真实的setting.xml路径），将创建的SOFABoot工程导入IDE中，即可直接编译本地运行。</p>
+<ul>
+<li>   Core工程：通常用于实现无页面展现的后端服务。当使用 SOFABoot 开发一个 J2SE 程序（无 Web 页面访问），相当于“基于 Spring Boot 的非 Web 应用（无 servlet 依赖）+ SOFA 中间件”进行开发。</li>
+</ul>
+<p> mvn -s “custom_settings_path” archetype:generate -DarchetypeGroupId=com.zjnx.sofa -DarchetypeArtifactId=core-app-parent-archetype -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeCatalog=internal</p>
+<ul>
+<li> Web工程：通常用于需要 Web 页面展现的应用。当用该工程类型开发一个 Web 程序时，相当于基于“Spring Boot 的 Web 应用 + SOFA 中间件进行开发”。<br>mvn -s “custom_settings_path” archetype:generate -DarchetypeGroupId=com.zjnx.sofa -DarchetypeArtifactId=web-app-parent-archetype -DarchetypeVersion=1.0-SNAPSHOT -DarchetypeCatalog=internal<br>在创建过程中会提示输入以下信息，请根据开发使用规范进行输入：<br>groupId : maven项目组织唯一标识<br>artifactId ：工程名或者项目名<br>version ：版本号，默认为1.0-SNAPSHOT<br>package : 包名，可不填，默认和groupId一致<br>Y：确认 N :取消<br>提供的“应用SOFABoot开发脚手架工程”，使用的配置信息如下, 本文后续所有操作也都是基于此工程进行开发演示：<br>groupId : com.zjrcu.sofa<br>artifactId ：core-app<br>version ：1.0-SNAPSHOT<br>package : com.zjrcu.sofa<h2 id="3-更新SOFABoot版本"><a href="#3-更新SOFABoot版本" class="headerlink" title="3. 更新SOFABoot版本"></a>3. 更新SOFABoot版本</h2>访问私服地址：XXXX，获取最新SOFABoot版本，并更新工程中的版本为最新版本，比如当前私服最新版为3.4.7。<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;parent&gt;</span><br><span class="line">&lt;groupId&gt;com.alipay.sofa&lt;&#x2F;groupId&gt;</span><br><span class="line">&lt;artifactId&gt;sofaboot-enterprise-dependencies&lt;&#x2F;artifactId&gt;</span><br><span class="line">&lt;version&gt;3.4.7&lt;&#x2F;version&gt;</span><br><span class="line">&lt;&#x2F;parent&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="4-引入SOFA-RPC-Starter及平台公共类"><a href="#4-引入SOFA-RPC-Starter及平台公共类" class="headerlink" title="4. 引入SOFA RPC Starter及平台公共类"></a>4. 引入SOFA RPC Starter及平台公共类</h2><h3 id="4-1-引入SOFA-RPC-Starter"><a href="#4-1-引入SOFA-RPC-Starter" class="headerlink" title="4.1 引入SOFA RPC Starter"></a>4.1 引入SOFA RPC Starter</h3>当前SOFA RPC同时支持BOLT和REST协议，所以无论服务是暴露BOLT还是REST协议，都只需引入rpc-enterprise-sofa-boot-starter，脚手架工程默认已经添加该依赖。另外注意引入SOFA中间件组件的Starter依赖时，不要设置版本号，由SOFABoot parent整体控制。<dependency>
+<groupId>com.alipay.sofa</groupId>
+<artifactId>rpc-enterprise-sofa-boot-starter</artifactId>
+</dependency>
+### 4.2 引入平台公共类
+公共类中包含系统之间交互的公共报文头，并会统一捕获和封装异常信息，以服务响应码的形式反馈给接口调用方。系统的交互规范及服务响应码详见《ZJ-RC-SOFA微服务应用开发使用规范》。
+<dependency>
+<groupId>com.zjrc.common</groupId>
+<artifactId>zjrc-common</artifactId>
+<version>1.0.0-SNAPSHOT</version>
+</dependency>
+## 5. 发布和引用SOFARPC微服务
+### 5.1 定义接口
+    在接口模块core-app-facede中创建自定义入参和出参，出入参都需继承入参基类及出参基类：
+public class User extends BaseInput {
+  private String username;
+  private int    age;
+  private String userId;
+  public User() {
+  }
+  public User(String username, int age, String userId) {
+      this.username = username;
+      this.age = age;
+      this.userId = userId;
+  }
+  //getter以及setter方法
+}
+    定义接口，并发布接口到私服中
+根据定义的入参和出参，编写RPC服务的接口。参考示例：
+public interface UserService {
+  StringOutput getUserName(User user);
+}
+将接口模块core-app-facade打包并发布到私服中，使接口可以被其他服务依赖并调用：
+mvn deploy:deploy-file</li>
+<li>DgroupId=com.zjrcu.sofa</li>
+<li>DartifactId=core-app-facade</li>
+<li>Dversion=1.0-SNAPSHOT</li>
+<li>Dpackaging=jar</li>
+<li>Dfile=E:\core-app-facade-1.0-SNAPSHOT.jar</li>
+<li>Durl=<a target="_blank" rel="noopener" href="http://158.222.68.166:8081/nexus/content/repositories/sofasnapshots/">http://158.222.68.166:8081/nexus/content/repositories/sofasnapshots/</a></li>
+<li>DrepositoryId=rpc-facades<br>   DgroupId和DartifactId构成了该jar包在pom.xml的坐标，项目就是依靠这两个属性定位；Dversion表示版本信息；Dfile表示需要上传的jar包的绝对路径；Durl表示私服上仓库的位置；DrepositoryId表示仓库id，需要与setting.xml中server标签的id一致，否则上传会提示权限不足；<h3 id="5-2-发布SOFARPC服务"><a href="#5-2-发布SOFARPC服务" class="headerlink" title="5.2 发布SOFARPC服务"></a>5.2 发布SOFARPC服务</h3>在服务的实现类上添加@SofaService注解，希望暴露的协议通过bindingType设定（rest/bolt），也支持同时暴露两个协议<br>@SofaService(interfaceType = SampleRestFacade.class,bindings = { @SofaServiceBinding(bindingType = “bolt”) })<br>@Service<br>public class SampleRestFacadeImpl implements SampleRestFacade {</li>
+</ul>
+<p>}</p>
+<h3 id="5-3-引用SOFARPC服务"><a href="#5-3-引用SOFARPC服务" class="headerlink" title="5.3 引用SOFARPC服务"></a>5.3 引用SOFARPC服务</h3><p>引入服务发布方的Facade包，并在定义该服务变量时添加@SofaReference注解，通过bindingType设定的协议与发布方保持一致。<br>@SofaReference(interfaceType = SampleRestFacade.class, binding = @SofaReferenceBinding(bindingType = “bolt”))<br>private SampleRestFacade sampleRestFacade;</p>
+<h2 id="6-更新应用配置"><a href="#6-更新应用配置" class="headerlink" title="6. 更新应用配置"></a>6. 更新应用配置</h2><p>SOFABoot是基于Spring Boot的开发框架，因此application.properties的配置，除了Spring Boot本身默认自带的之外，还会有一些SOFABoot特有的配置，基础的主要有如下几个需要正确设置：<br>    应用名称：spring.application.name<br>按照微服务应用开发规范命名：系统标识-子系统名。便于在管控台中查到相应服务。<br>    运行模式：run.mode<br>应用发布到云上时，必须设置为NORMAL，本地调试可设置为DEV或者TEST。<br>    运行环境：com.alipay.env。<br>当前SOFA输出模式固定为共享模式，值必须是shared。<br>    实例标识：com.alipay.instanceid。<br>由于SOFA是共享模式，会基于工作空间做逻辑划分，每个工作空间有对应的instanceid。<br>    AntVIP地址：com.antcloud.antvip.endpoint。<br>由于SOFA是多个中间件组件的集合，为了避免应用客户端设置多个中间件组件的服务端地址，SOFA提供了AntVIP来做路由，因此应用只需配置AntVIP地址即可。<br>实例标识和AntVIP地址信息的获取在下一小节介绍。<br>通过这些配置，再无需额外配置SOFA中间件服务端地址，比如微服务发布和订阅所需的注册中心地址，因为通过AntVIP，SOFA框架会自动获取。<br>以发布到测试环境ant7这个工作空间的应用为例，对应的配置信息需为：<br>run.mode=NORMAL<br>com.alipay.env=shared<br>com.alipay.instanceid=R20HZU2ELEHA<br>com.antcloud.antvip.endpoint=acvip-inner.dev.zjnx.com</p>
+<h2 id="7-获取环境实例标识和AntVIP地址"><a href="#7-获取环境实例标识和AntVIP地址" class="headerlink" title="7. 获取环境实例标识和AntVIP地址"></a>7. 获取环境实例标识和AntVIP地址</h2><p>登录PaaS平台中间件管理控制台，地址为<a target="_blank" rel="noopener" href="http://sofa-portal.dev.zjnx.com/">http://sofa-portal.dev.zjnx.com/</a><br>请选择租户和环境-&gt; ANTCLOUD -&gt; dev</p>
+<p>可在SOFA中间件的管控页面上查看到该工作空间对应的实例标识（com.alipay.instanceid）和AntVIP地址（com.antcloud.antvip.endpoint）信息，如下图所示。</p>
+<h2 id="8-发布应用并查看服务"><a href="#8-发布应用并查看服务" class="headerlink" title="8. 发布应用并查看服务"></a>8. 发布应用并查看服务</h2><p>8.1 SOFABoot 健康检查<br>SOFABoot在Spring Boot 的健康检查能力上，增加了Readiness Check 的能力，使用SOFABoot的健康检查能力的扩展，来更优雅的上线应用实例。<br>    可以直接在浏览器中输入：<a target="_blank" rel="noopener" href="http://localhost:8080/actuator/readiness">http://localhost:8080/actuator/readiness</a> 来查看Readiness Check 的结果<br>    也可以通过查看具体的日志来确定健康检查的结果，日志的目录位于health-check 目录下<br>8.2 管控台查看服务<br>应用启动后，通过健康检查，就会注册到注册中心，可以通过微服务控制台查看暴露的微服务。<br>SOFA中间件的管控页面-&gt;微服务控制台-&gt;服务管控</p>
+<p>上图中红框显示的“提供服务的应用”就是spring.application.name，所以为了便于管控及查找对应应用，微服务应用服务名称要遵循开发使用规范。</p>
+<h2 id="9-适配多个工作空间的配置"><a href="#9-适配多个工作空间的配置" class="headerlink" title="9. 适配多个工作空间的配置"></a>9. 适配多个工作空间的配置</h2><p>工作空间对应的是应用部署的不同环境，开发，功能测试，性能测试等，而不同环境的资源配置是不一样的，比如数据库连接，比如中间件的实例标识com.alipay.instanceid，等等。为了避免应用发布到不同工作空间时，需要修改application.properties里的值，PaaS平台通过SOFABoot技术栈发布应用时，会自动去按照当前所属工作空间名称寻找对应的application.properties文件，比如功能测试A1这个工作空间，那么PaaS平台发布应用时会优先选择application-A1.properties文件里的值。因此我们建议如下配置：<br>    相同配置放在application.properties文件中<br>    准备多份对应工作空间的application-XXX.properties文件，并在其中设置差异值</p>
+<h2 id="10-使用动态配置"><a href="#10-使用动态配置" class="headerlink" title="10. 使用动态配置"></a>10. 使用动态配置</h2><p>10.1 引入依赖<br><dependency><br>    <groupId>com.alipay.sofa</groupId><br>    <artifactId>ddcs-enterprise-sofa-boot-starter</artifactId><br></dependency><br>10.2 使用步骤<br>10.2.1 创建动态配置类<br>    创建动态配置类ExampleConfig<br>    类上标注@DObject注解，region和appName属性与管控平台上的配置类保持一致<br>    类属性上标注@DAttribute注解，属性名与管控平台上配置类的属性名保持一致<br>    编写init方法，其上标注@PostContrust注解，用于初始化动态配置组件<br>    编写Getter、Setter方法<br>@DObject(region = “ExampleRegion”, appName = “core-app”)<br>public class ExampleConfig {<br>@DAttribute<br>private String greeting;</p>
+<p>@PostConstruct<br>public void init() {<br>    DRMClient.getInstance().register(this);<br>}<br>    // setters, getters …<br>}<br>10.2.2 将动态配置类作为Spring Bean进行管理<br>在com.zjnx.sofa.config包下创建Spring配置类DdcsConfig，用于管理应用中所有动态配置类：<br>package com.zjnx.sofa.config;</p>
+<p>@Configuration<br>public class DdcsConfig {<br>    @Bean<br>    public ExampleConfig exampleConfig() {<br>        return new ExampleConfig();<br>    }<br>}<br>在启动类中配置@ComponentScan注解以加载config包下的Spring配置类：<br>@SpringBootApplication<br>@ComponentScan(basePackages = {“com.zjnx.sofa.config”})<br>public class SOFABootSpringApplication {<br>    public static void main(String[] args) {<br>        // …<br>    }<br>}<br>10.2.3 使用动态配置类<br>通过@Autowired注解引用动态配置类Bean：<br>public class SampleServiceImpl implements SampleService {<br>private ExampleConfig exampleConfig;</p>
+<p>@Override<br>public String message() {<br>    String greeting = exampleConfig.getGreeting();<br>    // …<br>}</p>
+<p>@Autowired<br>public void setExampleConfig(ExampleConfig ec) {<br>    this.exampleConfig = ec;<br>}<br>}<br>10.3 在管控台上创建配置类</p>
+<p>为该配置类创建属性，属性名与程序中的属性名一致：</p>
+<p>推送属性值：</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://github.com/tomasonl?tab=repositories">秋实先生</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://tomasonl.github.io">https://tomasonl.github.io</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">此文章版权归属Tomasonl秋实先生所有，如有转载请注明出处</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/">工作记录</a></div><div class="post_share"><div class="social-share" data-image="https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2964919715,1588537225&amp;fm=15&amp;gp=0.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i> 打赏<div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/WechatPay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/WechatPay.jpg"/></a><div class="post-qr-code-desc"></div></li><li class="reward-item"><a href="/img/Alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/Alipay.jpg"/></a><div class="post-qr-code-desc"></div></li></ul></div></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/04/25/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%943/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/maven.jpg" onerror="onerror=null;src='/img/404.jpg'"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">生活随笔3</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2020/04/06/Java多线程/" title="JAVA多线程"><img class="cover" src="http://pic1.win4000.com/wallpaper/2020-11-18/5fb4d3232459a.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-04-06</div><div class="title">JAVA多线程</div></div></a></div><div><a href="/2021/03/04/Java开发-规范起来1/" title="Java日常开发-规范起来1"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-04</div><div class="title">Java日常开发-规范起来1</div></div></a></div><div><a href="/2021/03/09/Java开发-规范起来2/" title="Java开发-规范起来2"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-09</div><div class="title">Java开发-规范起来2</div></div></a></div><div><a href="/2021/03/14/Java开发-规范起来3/" title="Java开发-规范起来3"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1832317564,3433131942&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-14</div><div class="title">Java开发-规范起来3</div></div></a></div><div><a href="/2020/02/01/Maven和Gradle项目构建/" title="Maven和Grade构建项目"><img class="cover" src="https://cdn.jsdelivr.net/gh/tomasonl/CDNRepo@1.1/Pic/Blogcover/%E6%97%A5%E5%B8%B8%E9%9A%8F%E7%AC%94.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-01</div><div class="title">Maven和Grade构建项目</div></div></a></div><div><a href="/2020/12/23/MyBatis源码剖析/" title="MyBatis源码剖析"><img class="cover" src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1090660196,3930716840&fm=26&gp=0.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-12-23</div><div class="title">MyBatis源码剖析</div></div></a></div></div></div></div><div class="aside_content" id="aside_content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><img class="avatar-img" src="/img/2.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/><div class="author-info__name">Tomasonlee</div><div class="author-info__description">厚积薄发，行胜于言</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">35</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/tomasonl"><i class="fab fa-github"></i><span>关注一波 O(∩_∩)O</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/tomasonl" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="https://tomasonl.cloudstudio.net/dashboard/workspace" target="_blank" title="CloudStudio"><i class="fas fa-cloud"></i></a><a class="social-icon" href="https://gitee.com/tomasonl" target="_blank" title="Gitee"><i class="fab fa-git-square"></i></a></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="card-content"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SOFA%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91"><span class="toc-number">1.</span> <span class="toc-text">SOFA微服务应用开发</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83"><span class="toc-number">1.1.</span> <span class="toc-text">1. 搭建开发环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E4%BA%8ESOFABoot%E8%84%9A%E6%89%8B%E6%9E%B6%E5%88%9B%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-number">1.2.</span> <span class="toc-text">2. 基于SOFABoot脚手架创建工程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9B%B4%E6%96%B0SOFABoot%E7%89%88%E6%9C%AC"><span class="toc-number">1.3.</span> <span class="toc-text">3. 更新SOFABoot版本</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BC%95%E5%85%A5SOFA-RPC-Starter%E5%8F%8A%E5%B9%B3%E5%8F%B0%E5%85%AC%E5%85%B1%E7%B1%BB"><span class="toc-number">1.4.</span> <span class="toc-text">4. 引入SOFA RPC Starter及平台公共类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#4-1-%E5%BC%95%E5%85%A5SOFA-RPC-Starter"><span class="toc-number">1.4.1.</span> <span class="toc-text">4.1 引入SOFA RPC Starter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-2-%E5%8F%91%E5%B8%83SOFARPC%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.4.2.</span> <span class="toc-text">5.2 发布SOFARPC服务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-3-%E5%BC%95%E7%94%A8SOFARPC%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.4.3.</span> <span class="toc-text">5.3 引用SOFARPC服务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%9B%B4%E6%96%B0%E5%BA%94%E7%94%A8%E9%85%8D%E7%BD%AE"><span class="toc-number">1.5.</span> <span class="toc-text">6. 更新应用配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E8%8E%B7%E5%8F%96%E7%8E%AF%E5%A2%83%E5%AE%9E%E4%BE%8B%E6%A0%87%E8%AF%86%E5%92%8CAntVIP%E5%9C%B0%E5%9D%80"><span class="toc-number">1.6.</span> <span class="toc-text">7. 获取环境实例标识和AntVIP地址</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%8F%91%E5%B8%83%E5%BA%94%E7%94%A8%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%9C%8D%E5%8A%A1"><span class="toc-number">1.7.</span> <span class="toc-text">8. 发布应用并查看服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#9-%E9%80%82%E9%85%8D%E5%A4%9A%E4%B8%AA%E5%B7%A5%E4%BD%9C%E7%A9%BA%E9%97%B4%E7%9A%84%E9%85%8D%E7%BD%AE"><span class="toc-number">1.8.</span> <span class="toc-text">9. 适配多个工作空间的配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#10-%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E9%85%8D%E7%BD%AE"><span class="toc-number">1.9.</span> <span class="toc-text">10. 使用动态配置</span></a></li></ol></li></ol></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Tomasonlee</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">厚积薄发，行胜于言！</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js"></script><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js"></script><div class="js-pjax"><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></div></body></html>
