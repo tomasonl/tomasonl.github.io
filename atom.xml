@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-05-06T01:31:25.286Z</updated>
+  <updated>2021-05-24T00:49:47.735Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -15,6 +15,26 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>安全开发规范</title>
+    <link href="http://tomasonl.github.io/2021/05/24/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"/>
+    <id>http://tomasonl.github.io/2021/05/24/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</id>
+    <published>2021-05-24T00:39:16.000Z</published>
+    <updated>2021-05-24T00:49:47.735Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1,关闭蓝牙和无线连接<br>屏幕右下角</p><p>打开蓝牙设置确认未连接蓝牙</p><p> <img src="./pic/2021-05-24-08-45-53.png"></p><p>2、开启防火墙</p><p><img src="pic/2021-05-24-08-46-13.png"></p><p>如果是关闭状态就打开</p><p>3、关闭网络共享和网络发现</p><p> <img src="pic/2021-05-24-08-46-51.png"></p><p>保存更改即可（专用、来宾、所有网络都要设置）<br>4、关闭远程桌面<br>右键我的电脑&gt;属性&gt;高级系统设置<br>去掉勾选，保存即可</p><p>5、关闭445和3389端口</p><p><img src="pic/2021-05-24-08-47-16.png"></p><p>输入445,3389</p><p>选择阻止连接，然后一路下一步,完成界面需要起一个名字(自己能记住的名字就好)</p><p>配置出站规则是同样的操作</p><p>6、关闭guest账户<br>右键我的电脑，点击管理，选择  本地用户和组&gt;用户，<br>双击guest账户，即可以打开guest属性设置，这里勾选“账户已禁用”即是禁用这个guest账户了；</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+  </entry>
   
   <entry>
     <title>新的开始</title>
@@ -418,28 +438,6 @@
     <updated>2020-12-23T03:52:11.637Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>抽象、归纳。总结</p><p>比如缓存，抽离出来功能，降低复杂度和耦合性！</p><p>每一个实现指向下一个，沿着链条传递。<br>1，扩展强。<br>2，灵活性。<br>3，独立性。</p><p>责任链模式：由多个部件，基于引用组成链条。行为上请求从链条的头部传递到各个节点，从而触发执行各个节点要负责的业务逻辑。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>MyBatis源码剖析</title>
-    <link href="http://tomasonl.github.io/2020/12/23/MyBatis%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/"/>
-    <id>http://tomasonl.github.io/2020/12/23/MyBatis%E6%BA%90%E7%A0%81%E5%89%96%E6%9E%90/</id>
-    <published>2020-12-23T00:53:31.000Z</published>
-    <updated>2021-03-08T01:25:47.116Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="MyBatis是什么？"><a href="#MyBatis是什么？" class="headerlink" title="MyBatis是什么？"></a>MyBatis是什么？</h1><p>orm框架—把字段映射为对象的属性；</p><p>比如一个User<br>id int primary_key auto_increament;<br>name varchar(10) not null;<br><strong>映射为User类，建立关联</strong><br>class User{<br>    pravite Integer id;<br>    private String name;<br>}</p><hr><p>之所以建立关联，可以想下之前我们传统JDBC步骤：</p><ol><li>导入JDBC驱动包。</li><li>Drivermanager注册驱动。</li><li>创建连接，Connection接口类连接数据库。</li><li>创建Statement，接口创建运行对象来执行SQL。</li><li>CRUD操作。</li><li>操作结果集，ResultSet保存查询结果。</li><li>关闭连接。</li></ol><p>手动操作Statement啦，Java里面写一大堆sql啦等等问题，很难！<br>ps：关于Iterator三个方法：hasNext()、next()、remove()<br>  hasNext:没有指针下移操作，只是判断是否存在下一个元素<br>  next：指针下移，返回该指针所指向的元素<br>  remove：删除当前指针所指向的元素，一般和next方法一起用，这时候的作用就是删除next方法返回的元素；</p><p>代理模式：接口不能实例化，Proxy提供一个静态方法，动态创建代理类，实现这个接口。</p><p>Mybatis架构设计：<br><img src="https://img-blog.csdnimg.cn/20201223103228930.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L20wXzM3Njc2NDI5,size_11,color_FFFFFF,t_70"><br>然后与Spring整合！</p><p>源码：打开入口点，想想如何实现。<br>问题：怎么映射的？xml怎么解析的？还有那写@Select注解，整个注解就能给我映射？带着问题，冲！</p><p>先找到配置文件，把他的流拿出来，调用javax.xml封装到xpath里面解析configuration里面的xml属性，塞进configuration对象，返回给一个sqlSessionFactory。<br>解析sql 考虑-r -n这种然后取”&lt;”之间的内容 遍历建树”&gt;”；</p>]]></content>
     
     
       
