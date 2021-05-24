@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-05-24T01:07:39.815Z</updated>
+  <updated>2021-05-24T01:14:06.127Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://tomasonl.github.io/2021/05/24/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/"/>
     <id>http://tomasonl.github.io/2021/05/24/%E5%AE%89%E5%85%A8%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/</id>
     <published>2021-05-24T00:39:16.000Z</published>
-    <updated>2021-05-24T01:07:39.815Z</updated>
+    <updated>2021-05-24T01:14:06.127Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1,关闭蓝牙和无线连接<br>屏幕右下角</p><p>打开蓝牙设置确认未连接蓝牙</p><p> <img src="/assets/001.jpg"></p><p><img src="/img/pic/2021-05-24-08-45-53.png"></p><p>2、开启防火墙</p><p>如果是关闭状态就打开</p><p>3、关闭网络共享和网络发现</p><p> <img src="/img/pic/2021-05-24-08-46-51.png"></p><p>保存更改即可（专用、来宾、所有网络都要设置）<br>4、关闭远程桌面<br>右键我的电脑&gt;属性&gt;高级系统设置<br>去掉勾选，保存即可</p><p>5、关闭445和3389端口</p><p><img src="/img/pic/2021-05-24-08-47-16.png"></p><p>输入445,3389</p><p>选择阻止连接，然后一路下一步,完成界面需要起一个名字(自己能记住的名字就好)</p><p>配置出站规则是同样的操作</p><p>6、关闭guest账户<br>右键我的电脑，点击管理，选择  本地用户和组&gt;用户，<br>双击guest账户，即可以打开guest属性设置，这里勾选“账户已禁用”即是禁用这个guest账户了；</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>1,关闭蓝牙和无线连接<br>屏幕右下角</p><p>打开蓝牙设置确认未连接蓝牙</p><p>  <img src="/img/001.jpg"></p><p>2、开启防火墙</p><p>如果是关闭状态就打开</p><p>3、关闭网络共享和网络发现</p><p> <img src="/img/pic/2021-05-24-08-46-51.png"></p><p>保存更改即可（专用、来宾、所有网络都要设置）<br>4、关闭远程桌面<br>右键我的电脑&gt;属性&gt;高级系统设置<br>去掉勾选，保存即可</p><p>5、关闭445和3389端口</p><p><img src="/img/pic/2021-05-24-08-47-16.png"></p><p>输入445,3389</p><p>选择阻止连接，然后一路下一步,完成界面需要起一个名字(自己能记住的名字就好)</p><p>配置出站规则是同样的操作</p><p>6、关闭guest账户<br>右键我的电脑，点击管理，选择  本地用户和组&gt;用户，<br>双击guest账户，即可以打开guest属性设置，这里勾选“账户已禁用”即是禁用这个guest账户了；</p>]]></content>
     
     
       
