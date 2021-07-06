@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-06-30T08:46:59.676Z</updated>
+  <updated>2021-07-06T01:22:13.122Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>生产力</title>
+    <link href="http://tomasonl.github.io/2021/07/06/%E7%94%9F%E4%BA%A7%E5%8A%9B/"/>
+    <id>http://tomasonl.github.io/2021/07/06/%E7%94%9F%E4%BA%A7%E5%8A%9B/</id>
+    <published>2021-07-06T01:15:14.000Z</published>
+    <updated>2021-07-06T01:22:13.122Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="IDEA-快捷键"><a href="#IDEA-快捷键" class="headerlink" title="IDEA 快捷键"></a>IDEA 快捷键</h1><ul><li>try/catch快捷键<br>Ctrl + Alt + t</li><li>格式化代码<br>去掉空白： Ctrl + Shift + J<br>格式化代码： Ctrl + Alt + L</li><li>大小写切换<br>Ctrl+Shift+u</li><li>优化依赖引入Imports<br>Ctrl+Alt+O     </li><li>查找/替换<br>双击Shift          全局查找<br>Ctrl+Shift+F     目录内查找<br>Ctrl+R             替换<br>Ctrl+Shift+R     目录内替换</li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
+      
+    
+    
+    
+    
+    <category term="工具模块" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E5%85%B7%E6%A8%A1%E5%9D%97/"/>
+    
+  </entry>
   
   <entry>
     <title>EasyExcel</title>
@@ -429,28 +451,6 @@
     
     
     <category term="生活随笔" scheme="http://tomasonl.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E7%AC%94/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端进阶学习记录</title>
-    <link href="http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    <id>http://tomasonl.github.io/2021/01/15/%E5%89%8D%E7%AB%AF%E8%BF%9B%E9%98%B6-%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/</id>
-    <published>2021-01-15T08:29:32.000Z</published>
-    <updated>2021-03-11T07:21:32.380Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">1、前端开发和前端开发工具</span><br><span class="line">2、Nodejs安装及快速入门</span><br><span class="line">3、Es6的新语法糖</span><br><span class="line">4、Npm包管理器</span><br><span class="line">5、Babel的安装作用</span><br><span class="line">6、模块化管理</span><br><span class="line">7、Webpack打包和编译</span><br><span class="line">8、如何快速构建一个nodejs项目vue-element-admin</span><br></pre></td></tr></table></figure><h1 id="01、概述和前端工具vscode安装"><a href="#01、概述和前端工具vscode安装" class="headerlink" title="01、概述和前端工具vscode安装"></a>01、概述和前端工具vscode安装</h1><p>前端开发是创建Web页面或app等前端界面呈现给用户的过程，通过HTML，CSS及JavaScript以及衍生出来的各种技术、框架、解决方案，来实现互联网产品的用户界面交互 [1] 。它从网页制作演变而来，名称上有很明显的时代特征。在互联网的演化进程中，网页制作是Web1.0时代的产物，==早期网站主要内容都是静态，以图片和文字为主==，用户使用网站的行为也以浏览为主。随着互联网技术的发展和HTML5、CSS3的应用，现代网页更加美观，交互效果显著，功能更加强大。 [2]</p><p>移动互联网带来了大量高性能的移动终端设备以及快速的无线网络，HTML5，node.jS的广泛应用，各类框架类库层出不穷。 [1]</p><p>当下国内的大部分互联网公司只有前端工程师和后端工程师，中间层的工作有的由前端来完成，有的由后端来完成。</p>]]></content>
-    
-    
-      
-      
-    <summary type="html">&lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla</summary>
-      
-    
-    
-    
-    
-    <category term="工作记录" scheme="http://tomasonl.github.io/tags/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
     
   </entry>
   
