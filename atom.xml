@@ -6,7 +6,7 @@
   <link href="http://tomasonl.github.io/atom.xml" rel="self"/>
   
   <link href="http://tomasonl.github.io/"/>
-  <updated>2021-07-06T01:22:13.122Z</updated>
+  <updated>2021-07-15T11:02:25.613Z</updated>
   <id>http://tomasonl.github.io/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://tomasonl.github.io/2021/07/06/%E7%94%9F%E4%BA%A7%E5%8A%9B/"/>
     <id>http://tomasonl.github.io/2021/07/06/%E7%94%9F%E4%BA%A7%E5%8A%9B/</id>
     <published>2021-07-06T01:15:14.000Z</published>
-    <updated>2021-07-06T01:22:13.122Z</updated>
+    <updated>2021-07-15T11:02:25.613Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="IDEA-快捷键"><a href="#IDEA-快捷键" class="headerlink" title="IDEA 快捷键"></a>IDEA 快捷键</h1><ul><li>try/catch快捷键<br>Ctrl + Alt + t</li><li>格式化代码<br>去掉空白： Ctrl + Shift + J<br>格式化代码： Ctrl + Alt + L</li><li>大小写切换<br>Ctrl+Shift+u</li><li>优化依赖引入Imports<br>Ctrl+Alt+O     </li><li>查找/替换<br>双击Shift          全局查找<br>Ctrl+Shift+F     目录内查找<br>Ctrl+R             替换<br>Ctrl+Shift+R     目录内替换</li></ul>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="IDEA-快捷键"><a href="#IDEA-快捷键" class="headerlink" title="IDEA 快捷键"></a>IDEA 快捷键</h1><ul><li>try/catch快捷键<br>Ctrl + Alt + t</li><li>格式化代码<br>去掉空白： Ctrl + Shift + J<br>格式化代码： Ctrl + Alt + L</li><li>大小写切换<br>Ctrl+Shift+u</li><li>优化依赖引入Imports<br>Ctrl+Alt+O     </li><li>查找/替换<br>双击Shift          全局查找<br>Ctrl+Shift+F     目录内查找<br>Ctrl+R             替换<br>Ctrl+Shift+R     目录内替换</li><li>换壁纸<br>Ctrl+Shift+A ：Set Background Image</li></ul><h1 id="IDEA插件"><a href="#IDEA插件" class="headerlink" title="IDEA插件"></a>IDEA插件</h1><ol><li>Key promoter X<br>Key Promoter X 是一个提示插件，当你在IDEA里面使用鼠标的时候，如果这个鼠标操作是能够用快捷键替代的，那么Key Promoter X会弹出一个提示框，告知你这个鼠标操作可以用什么快捷键替代。<br>当我使用鼠标查看一个方法都被哪些类使用的时候，就会在右下角提示；</li><li>Maven Helper<br>日常开发中，可能经常会遇到jar包冲突等问题，就需要通过查看maven依赖树来查看依赖情况。这种方式不是很高效，这里推荐一个插件，安装之后，直接打开pom文件，即可查看依赖数，还能自动分析是否存在jar包冲突。</li><li>​GsonFormat<br>可以快速的将JSON转换为实体类</li></ol><p>先定义一个空的实体类，快捷键Alt + S，即可根据JSON生成出来对应的java bean的代码。</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public class Article &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">     * id : 1</span><br><span class="line">     * author : leo</span><br><span class="line">     * title : GsonFormat工具使用</span><br><span class="line">     * content : hello</span><br><span class="line">     * createTime :</span><br><span class="line">     * reader : [&#123;&quot;name&quot;:&quot;leo&quot;,&quot;age&quot;:18&#125;,&#123;&quot;name&quot;:&quot;kafuka&quot;,&quot;age&quot;:16&#125;]</span><br><span class="line">     *&#x2F;</span><br><span class="line"></span><br><span class="line">    private Long id;</span><br><span class="line">    private String author;</span><br><span class="line">    private String title;</span><br><span class="line">    private String content;</span><br><span class="line">    private String createTime;</span><br><span class="line">    private List&lt;ReaderBean&gt; reader;</span><br></pre></td></tr></table></figure><p>​</p>]]></content>
     
     
       
